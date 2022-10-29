@@ -11,7 +11,7 @@
 </h:head> 
 	
 	<f:metadata>
-    <f:event listener="#{bajaEM.initConversation}" type="preRenderView" /> 
+    <f:event listener="#{eliminarcasilla.initConversation}" type="preRenderView" /> 
      <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
 	</f:metadata>
 	
@@ -29,10 +29,10 @@
         	</h:form>
 
         <p:tabMenu activeIndex="0">
-            <p:menuitem icon="pi pi-star" value="Inicio" outcome="listarEstacionMedicion">
+            <p:menuitem icon="pi pi-star" value="Listar Casillas" outcome="listarCasilla">
                 <f:param name="i" value="0" />
             </p:menuitem>
-            <p:menuitem icon="pi pi-user" value="Crear Nueva Estación" outcome="crearEstacionMedicion">
+            <p:menuitem icon="pi pi-user" value="Crear Nueva Casilla" outcome="crearCasilla">
                 <f:param name="i" value="1" />
             </p:menuitem>
         </p:tabMenu>
@@ -42,7 +42,7 @@
             <div style="padding: 5px; width: 98%; margin: 0 auto;">
             
             	
-            	<p:panel id="basic" header="Baja de Estación" footer="FIDES AIR" style="margin: 0 auto">
+            	<p:panel id="basic" header="Baja de Casilla" footer="FIDES AIR" style="margin: 0 auto">
             
            		 <p:growl id="messages" showDetail="true"/>	
             	
@@ -50,58 +50,46 @@
             	  
                 <div style="padding: 10px;">
                     <p:outputLabel value="nombre: " style="font-weight: bold;" />
-                    <p:inputText id="codigo" value="#{bajaEM.nombre}" disabled="true"  style="width: 100%;" />
+                    <p:inputText id="codigo" value="#{eliminarcasilla.nombre}" disabled="true" style="width: 100%;" />
                     <p:message for="@previous" />
                 </div>
 
                 <div style="padding: 10px;">
                     <p:outputLabel value="Descripcion: " style="font-weight: bold;" />
-                    <p:inputText value="#{bajaEM.descripcion}" disabled="true"  style="width: 100%;" />
+                    <p:inputText value="#{eliminarcasilla.descripcion}"  disabled="true" style="width: 100%;" />
                     <p:message for="@previous" />
                 </div>
 
                 <div style="padding: 10px;">
-                    <p:outputLabel value="Parametro: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;" disabled="true" value="#{bajaEM.parametro}" />
+                    <p:outputLabel value="Tipo de Dato: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;" disabled="true" value="#{eliminarcasilla.tipoDato}" />
                     <p:message for="@previous" />
                 </div>
 
                 <div style="padding: 10px;">
                     <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;"  disabled="true" value="#{bajaEM.unidadMedida}" />
+                    <p:inputText style="width: 100%;"  disabled="true" value="#{eliminarcasilla.unidadMedida}" />
                     <p:message for="@previous" />
                 </div>
                 
                 <div style="padding: 10px;">
                     <p:outputLabel value="Tipo de dato: " style="font-weight: bold;" />
-                    <p:selectOneMenu style="width: 100%;"  disabled="true" value="#{bajaEM.tipoDato}">
+                    <p:selectOneMenu style="width: 100%;"  disabled="true" value="#{eliminarcasilla.tipoDato}">
                         <f:selectItems value="#{altacasilla.etdc}" />
                     </p:selectOneMenu>
                     <p:message for="@previous" />
                 </div>
                 
                 <div style="padding: 10px;">
-                    <p:outputLabel value="Departamento: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;"  disabled="true" value="#{bajaEM.departamento}" />
-                    <p:message for="@previous" />
-                </div>
-                
-                <div style="padding: 10px;">
-                    <p:outputLabel value="Ciudad: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;" disabled="true" value="#{bajaEM.ciudad}" />
-                    <p:message for="@previous" />
-                </div>
-                
-                <div style="padding: 10px;">
-                    <p:outputLabel value="Usuario: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;"  disabled="true" value="#{bajaEM.usuario}" />
+                    <p:outputLabel value="Ubicacion: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  disabled="true" value="#{eliminarcasilla.lugarubicacion}" />
                     <p:message for="@previous" />
                 </div>
 
                 <div style="padding: 10px;">
-                    <p:commandButton value="Bajar Estación"  update="messages" action="#{bajaEM.eliminar}" style="width: 100%;" />
-                    <p:spacer width="10" />
-                    <p:button value="Cancelar" style="width: 100%;" />
+                    <p:commandButton value="Bajar Casilla"  update="messages" action="#{eliminarcasilla.eliminar}" style="width: 100%;" />
+                    <p:spacer width="5" />
+                    <p:button value="Cancelar" style="width: 100%;" action="#{eliminarcasilla.cancelar}"  />
                 </div>
             
             

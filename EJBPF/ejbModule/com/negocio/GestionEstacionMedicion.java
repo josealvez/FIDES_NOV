@@ -9,13 +9,7 @@ import javax.ejb.Stateless;
 
 import com.daos.EstacionMedicionDAO;
 import com.dto.EstacionMedicionDTO;
-import com.dto.FenomenoDTO;
-import com.dto.ObservacionDTO;
 import com.entities.EstacionMedicion;
-import com.entities.EstadoUsuario;
-import com.entities.Fenomeno;
-import com.entities.Usuario;
-import com.enumerados.EnumEstadoUsuario;
 import com.exception.ServiciosException;
 
 /**

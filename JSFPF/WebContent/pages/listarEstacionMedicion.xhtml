@@ -112,11 +112,11 @@
                 </p:column>
                 
                 <p:column headerText="Acciones" style="text-align: center;">
-                        <p:button icon="pi pi-pencil" value="Editar" outcome="actualizarEstacionMedicion" style="width:60%; margin-bottom:5px;">
+                        <p:button icon="pi pi-pencil" value="Editar" outcome="actualizarEstacionMedicion">
                             <f:param name="nombre" value="#{item.nombre}" />
                         </p:button>
                         
-                        <p:button icon="pi pi-times-circle" value="Eliminar" outcome="eliminarEstacionMedicion" style="width:70%; margin-bottom:5px;">
+                        <p:button icon="pi pi-times-circle" value="Eliminar" outcome="eliminarEstacionMedicion">
                             <f:param name="nombre" value="#{item.nombre}" />
                         </p:button>
                                             

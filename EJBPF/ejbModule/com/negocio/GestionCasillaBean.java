@@ -152,5 +152,10 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
 		List<CasillaDTO> fs = this.prepararCasillasPorFormulario(pk);
 		return fs;
 	}
+	
+	@Override
+	public void bajaLogicaCasilla(Long pk) throws  ServiciosException {
+		fPersistencia.bajaCasilla(pk);
+	}
 
 }

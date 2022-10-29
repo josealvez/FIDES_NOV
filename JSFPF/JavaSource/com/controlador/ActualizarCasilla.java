@@ -46,19 +46,17 @@ public class ActualizarCasilla implements Serializable {
 	    if (!FacesContext.getCurrentInstance().isPostback() ) {
 	    	FacesContext fc = FacesContext.getCurrentInstance();	
 			if(!fc.getExternalContext().getRequestParameterMap().isEmpty()) {
-				String nombreCasilla= fc.getExternalContext().getRequestParameterMap().get("nombre");
+				String nombre = fc.getExternalContext().getRequestParameterMap().get("nombre");
+				System.out.println("------------------------HOLA ENTTRE " + nombre );
 				try {
-					CasillaDTO fs = casillaEJB.obtenerCasillaNombre(nombreCasilla);
-					if(fs != null) {
-						this.id_casilla = fs.getId_casilla();
-						this.descripcion = fs.getDescripcion();
-						this.nombre = fs.getNombre();
-						this.lugarubicacion = fs.getLugarubicacion();
-						this.parametro = fs.getParametro();
-						this.unidadMedida = fs.getUnidadMedida();
-						this.tipoDato = fs.getTipoDato();
-						System.out.print("ACA ESTA EL ID: " + fs.getId_casilla());
-					}
+					CasillaDTO fs = (CasillaDTO) casillaEJB.obtenerCasillaNombre(nombre);
+					this.setId_casilla(fs.getId_casilla());
+					this.descripcion = fs.getDescripcion();
+					this.nombre = fs.getNombre();
+					this.lugarubicacion = fs.getLugarubicacion();						
+					this.setParametro(fs.getParametro());
+					this.unidadMedida = fs.getUnidadMedida();
+					this.tipoDato = fs.getTipoDato();
 					
 				} catch (ServiciosException e) {
 					FacesContext context = FacesContext.getCurrentInstance();
@@ -178,7 +176,7 @@ public class ActualizarCasilla implements Serializable {
 			context.addMessage( "debe contener entre 3 y 50 caracteres." , message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return " ";
-		}else if( (this.parametro.length() < 3) || (this.parametro.length() > 50)){
+		}else if( (this.parametro.length() > 10)){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación",  "debe contener entre 3 y 50 caracteres.");
 			context.addMessage( "debe contener entre 3 y 50 caracteres.", message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
@@ -198,16 +196,16 @@ public class ActualizarCasilla implements Serializable {
 		}
 		
 try {
-			
+			CasillaDTO cas = (CasillaDTO) casillaEJB.obtenerCasillaNombre(nombre);
 			CasillaDTO casilla = new CasillaDTO();
-			
-			casilla.setId_casilla(this.getId_casilla());
+			casilla.setId_casilla(cas.getId_casilla());
 			casilla.setDescripcion(this.getDescripcion());
 			casilla.setNombre(this.getNombre());
 			casilla.setLugarubicacion(this.getLugarubicacion());
 			casilla.setParametro(this.getParametro());
 			casilla.setUnidadMedida(this.getUnidadMedida());
 			casilla.setTipoDato(this.getTipoDato());
+			casilla.setContienes(cas.getContienes());
 			
 			casillaEJB.modificarCasilla(casilla);
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "La casilla fue actualizada", "OK");

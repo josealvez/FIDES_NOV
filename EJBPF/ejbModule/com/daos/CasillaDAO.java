@@ -63,13 +63,13 @@ public class CasillaDAO implements ICasillaDAO {
 	}
 
 	@Override
-	public List<Casilla> obtenerPorNombre(String descripcion) throws ServiciosException {
+	public List<Casilla> obtenerPorNombre(String nombre) throws ServiciosException {
 		try {
 			TypedQuery<Casilla> query = em.createQuery("SELECT f FROM Casilla f WHERE f.nombre = :n", Casilla.class)
-					.setParameter("n", descripcion);
+					.setParameter("n", nombre);
 			return query.getResultList();
 			} catch (PersistenceException e) {
-				throw new ServiciosException("No se pudo encontrar el casilla: " + descripcion);
+				throw new ServiciosException("No se pudo encontrar la casilla: " + nombre);
 			}
 	}
 	@Override

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+ <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+ <f:event listener="#{modificarcasilla.initConversation}" type="preRenderView" /> 
+ <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+</h:head> 
+	
+	
+	   <h:body style="margin: 0px;">
+       
+       <h:form>
+       		<p:menubar>
+            	<f:facet name="options">
+            		<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+            	</f:facet>
+        	</p:menubar>
+        	</h:form>
+		
+        <p:tabMenu activeIndex="0">
+            <p:menuitem icon="pi pi-star" value="Modificar Casilla" outcome="actualizarCasilla">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+
+            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
+                <f:param name="i" value="2" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-bell" value="Listar Casillas" outcome="listarCasilla">
+                <f:param name="i" value="3" />
+            </p:menuitem>
+                        
+            <p:menuitem icon="pi pi-globe" value="Listar Formularios CA" outcome="listarFormulario">
+                <f:param name="i" value="4" />
+            </p:menuitem>
+        </p:tabMenu>			
+	<br/>
+        	<h:form>
+            <div style="padding: 5px; width: 98%; margin: 0 auto;">
+            
+            	
+            	<p:panel id="basic" header="Modificar Casilla" footer="FIDES-AIR">
+            
+           		 <p:growl id="messages" showDetail="true"/>	
+            	
+            	  <p:messages />
+            	
+                <div style="padding: 10px;">
+                    <p:outputLabel value="nombre: " style="font-weight: bold;" />
+                    <p:inputText id="codigo" value="#{modificarcasilla.nombre}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Descripcion: " style="font-weight: bold;" />
+                    <p:inputText value="#{modificarcasilla.descripcion}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Lugar Ubicacion: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;" value="#{modificarcasilla.lugarubicacion}" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Parametro: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{modificarcasilla.parametro}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
+                    <p:inputText value="#{modificarcasilla.unidadMedida}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Tipo de dato: " style="font-weight: bold;" />
+                    <p:selectOneMenu style="width: 100%;"  value="#{modificarcasilla.tipoDato}">
+                        <f:selectItems value="#{altacasilla.etdc}" />
+                    </p:selectOneMenu>
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:commandButton value="Actualizar"  update="messages" ajax="false" validateClient="true" action="#{modificarcasilla.modificarCasilla}" style="width: 100%;" />
+                    <p:spacer width="5" />
+                    <p:button value="Cancelar" style="width: 100%;" href="/JSFPF/pages/listarUsuario.xhtml" />
+                </div>
+            
+            
+            </p:panel>
+            </div>
+                       
+           </h:form> 
+  
+    </h:body>
+
+</html>

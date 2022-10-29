@@ -21,6 +21,7 @@ public class EliminarCasilla implements Serializable{
 	@EJB
 	private GestionCasillaBean casillaEJB;
 	
+	private Long id_casilla;
 	private String descripcion;
 	private String lugarubicacion;
 	private String nombre;
@@ -32,14 +33,15 @@ public class EliminarCasilla implements Serializable{
 	    if (!FacesContext.getCurrentInstance().isPostback() ) {
 	    	FacesContext fc = FacesContext.getCurrentInstance();	
 			if(!fc.getExternalContext().getRequestParameterMap().isEmpty()) {
-				String nombre= fc.getExternalContext().getRequestParameterMap().get("nombre");
-				System.out.println("HOLA ENTTRE " + nombre );
+				String nombre = fc.getExternalContext().getRequestParameterMap().get("nombre");
+				System.out.println("------------------------HOLA ENTTRE " + nombre );
 				try {
-					CasillaDTO fs = (CasillaDTO) casillaEJB.obtenerCasillas();
+					CasillaDTO fs = (CasillaDTO) casillaEJB.obtenerCasillaNombre(nombre);
+					this.setId_casilla(fs.getId_casilla());
 					this.descripcion = fs.getDescripcion();
 					this.nombre = fs.getNombre();
 					this.lugarubicacion = fs.getLugarubicacion();						
-					this.parametro = fs.getParametro();
+					this.setParametro(fs.getParametro());
 					this.unidadMedida = fs.getUnidadMedida();
 					this.tipoDato = fs.getTipoDato();
 					
@@ -52,6 +54,14 @@ public class EliminarCasilla implements Serializable{
 	    }
 	}
 	
+	public Long getId_casilla() {
+		return id_casilla;
+	}
+
+	public void setId_casilla(Long id_casilla) {
+		this.id_casilla = id_casilla;
+	}
+
 	public GestionCasillaBean getCasillaEJB() {
 		return casillaEJB;
 	}
@@ -95,7 +105,35 @@ public class EliminarCasilla implements Serializable{
 		this.unidadMedida = unidadMedida;
 	}
 	
+public String cancelar() {
+	return "/pages/listarCasilla.xhtml?faces-redirect=true";
+}
 public String eliminar() {
-		return "";
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		String redirect = "/pages/eliminarCasilla.xhtml?faces-redirect=true";
+		if(!this.nombre.isEmpty()) {
+			try {
+				CasillaDTO cas = (CasillaDTO) casillaEJB.obtenerCasillaNombre(nombre);
+				casillaEJB.bajaLogicaCasilla(cas.getId_casilla());
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "La casilla fue Eliminada", "OK");
+				context.addMessage("", message);
+				context.getExternalContext().getFlash().setKeepMessages(true);
+				
+			} catch (ServiciosException e) {
+				
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "ERROR");
+				context.addMessage("", message);
+				context.getExternalContext().getFlash().setKeepMessages(true);
+		        return " ";
+			}
+		}else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Debe seleccionar una Casilla");
+			context.addMessage("", message);
+			context.getExternalContext().getFlash().setKeepMessages(true);
+			return " ";
+		}
+
+		return redirect;
 	}
 }

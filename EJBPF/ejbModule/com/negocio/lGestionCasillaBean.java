@@ -13,5 +13,6 @@ public interface lGestionCasillaBean {
 	public CasillaDTO obtenerCasillaNombre(String nombre) throws ServiciosException;
 	public List<CasillaDTO> obtenerCasillas() throws ServiciosException;
 	List<CasillaDTO> obtenerCasillasPorFormulario(long pk) throws ServiciosException;
+	void bajaLogicaCasilla(Long pk) throws ServiciosException;
 
 }

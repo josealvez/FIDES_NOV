@@ -47,7 +47,7 @@ public class Casilla implements Serializable {
 	private String unidadMedida;
 
 	//bi-directional many-to-one association to Contiene
-	@OneToMany(mappedBy="casilla")
+	@OneToMany(mappedBy="casilla",  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Contiene> contienes;
 	
 	

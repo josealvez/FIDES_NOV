@@ -41,8 +41,7 @@
 		</p:tabMenu>
 		<br/>
 		
-        <div class="card">
-    		<h5 class="first">Header Row</h5>
+        <div style="padding: 5px; width: 97%; margin: 0 auto;" >
     		<h:form>
 				<p:dataTable
                     id="data"
@@ -51,28 +50,63 @@
                     sortBy="#{item.formulario.nombre}"
                     widgetVar="formularioTable"
                     emptyMessage="No hay formularios disponibles"
+                    paginator="true"
+                    rows="15"
                     filteredValue="#{listarformularios.filteredContiene}"
                     globalFilterFunction="#{listarformularios.globalFilterFunction}">
-
-                    <p:headerRow field="item.formulario.nombre"
-                    	expandable="true"
-                        expanded="#{item.casilla.nombre != 'Stephen Shaw'}">
+					
+					<f:facet name="header">
+                        <p:outputPanel>
+                        	
+                            <h:outputText value="Buscar formularios: " />
+                            <p:inputText id="globalFilter" onkeyup="PF('formularioTable').filter()" style="width: 150px;" placeholder="Buscar..." />
+                        </p:outputPanel>
                         
-               			<p:column colspan="3">
+                    </f:facet>
+                    
+                    <p:headerRow field="item.formulario.nombre">
+                        
+               			<p:column colspan="1">
                    			<div style="vertical-align: middle">
-                        		<h:outputText value="#{item.formulario.nombre}"/>
+                        		<h:outputText value="Formulario: #{item.formulario.nombre}"/>
                     		</div>
                 		</p:column>
+                		
+                		
+                		
+                		<p:column colspan="1">
+                   			<div style="vertical-align: middle">
+                        		<h:outputText value=" #{item.formulario.descripcion}"/>
+                    		</div>
+                		</p:column>
+                		
+                		<p:column colspan="1">
+                		</p:column>
+                		
+                		<p:column headerText="Acciones" style="text-align: center;">
+							<p:spacer width="10" />
+							<p:button icon="pi pi-compass" value="Ver" outcome="detalleObservacion">
+							<f:param name="formID" value="#{item.formulario.id_formulario}" />
+							</p:button>
+						</p:column>
             		</p:headerRow>
        
-					<p:column headerText="Casilla">
+					<p:column headerText="Formulario y Casillas">
 						<h:outputText value="#{item.casilla.nombre}" />
 					</p:column>
 					
 					<p:column headerText="Descripcion">
 						<h:outputText value="#{item.casilla.descripcion}" />
 					</p:column>
-
+					
+					<p:column headerText="Medicion">
+						<h:outputText value="#{item.casilla.unidadMedida}" />
+					</p:column>
+					
+					<p:column headerText="Datos">
+						<h:outputText value="#{item.casilla.parametro}" />
+					</p:column>
+					
 				</p:dataTable>
 			</h:form>
 		</div>

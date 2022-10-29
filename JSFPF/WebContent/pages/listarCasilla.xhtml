@@ -89,13 +89,22 @@
                 <p:column headerText="Descripcion">
                     <h:outputText value="#{item.descripcion}" />
                 </p:column>
+                
+                <p:column headerText="Datos">
+                    <h:outputText value="#{item.parametro}" />
+                </p:column>
 
                           <p:column headerText="Acciones" style="text-align: center;">
                 
                     <p:spacer width="10" />
-                    <p:button icon="pi pi-pencil" value="Editar" outcome="crearCasilla">
+                    <p:button icon="pi pi-pencil" value="Editar" outcome="actualizarCasilla">
                         <f:param name="nombre" value="#{item.nombre}" />
                     </p:button>
+                    
+                    <p:button icon="pi pi-times-circle" value="Eliminar" outcome="eliminarCasilla">
+                    	<f:param name="nombre" value="#{item.nombre}" />
+                    </p:button>
+                        
                 </p:column>
                 </p:dataTable>
             </h:form>
