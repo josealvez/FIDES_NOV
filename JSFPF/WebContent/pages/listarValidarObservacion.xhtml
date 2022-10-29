@@ -1,0 +1,110 @@
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		 <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		<style type="text/css">
+            .ui-datatable {
+                margin-bottom: 25px
+            }
+
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            }
+        </style>
+	</h:head>
+	<h:body style="margin: 0px;">
+		<h:form>
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+		
+		
+		 <p:tabMenu activeIndex="4">
+            <p:menuitem icon="pi pi-star" value="Listar Casilla" outcome="listarCasilla">
+                <f:param name="i" value="0" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-bell" value="Listar Caracteristicas" outcome="listarCaracteristicas">
+                <f:param name="i" value="2" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-globe" value="Crear Caracteristica" outcome="crearCaracteristica">
+                <f:param name="i" value="3" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-globe" value="Listar Observaciones" outcome="listarValidarObservacion">
+                <f:param name="i" value="4" />
+            </p:menuitem>
+            
+            
+        </p:tabMenu>
+		
+		
+		<br/>
+		<div style="padding: 5px; width: 97%; margin: 0 auto;" >
+			<h:form>
+				<p:dataTable
+                	
+                    id="data"
+                    var="item"
+                    value="#{lobsinvalidar.listaObservacion}"
+                    rowKey="#{item.id_observacion}"
+                    widgetVar="observacionTable"
+                    emptyMessage="No hay Observaciones disponibles"
+                    paginator="true"
+                    rows="15"
+                    filteredValue="#{lobsinvalidar.filteredObservacion}"
+                    globalFilterFunction="#{lobsinvalidar.globalFilterFunction}">
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Buscar observacion: " />
+							<p:inputText id="globalFilter" onkeyup="PF('observacionTable').filter()" style="width: 150px;" placeholder="Buscar..." />
+						</p:outputPanel>
+					</f:facet>
+					<p:column headerText="ID">
+						<h:outputText value="#{item.id_observacion}" />
+					</p:column>
+					<p:column headerText="Descripcion">
+						<h:outputText value="#{item.descripcion}" />
+					</p:column>
+					<p:column headerText="Fenomeno">
+						<h:outputText value="#{item.categoriaFenomeno}" />
+					</p:column>
+					<p:column headerText="Fecha">
+						<h:outputText value="#{item.fecha}" />
+					</p:column>
+					<p:column headerText="Localidad">
+						<h:outputText value="#{item.localidad}" />
+					</p:column>
+					<p:column headerText="Departamento">
+						<h:outputText value="#{item.departamento}" />
+					</p:column>
+					<p:column headerText="Estado">
+						<h:outputText value="#{item.estado}" />
+					</p:column>
+					
+					<p:column headerText="Acciones" style="text-align: center;">
+						<p:spacer width="10" />
+						<p:button icon="pi pi-compass" value="Validar" outcome="validarObservacion">
+							<f:param name="obsID" value="#{item.id_observacion}" />
+						</p:button>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</div>
+	</h:body>
+</html>

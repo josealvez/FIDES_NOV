@@ -1,0 +1,67 @@
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+	<h:head>	 
+		<f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 	
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	</h:head>
+	<h:body style="margin: 0px;">
+		<h:form>
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+		<p:tabMenu activeIndex="1">
+			<p:menuitem icon="pi pi-star" value="Ver Formularios" outcome="listarFormulario">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem icon="pi pi-cloud" value="Crear Formulario" outcome="crearFormulario">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+		</p:tabMenu>
+		
+		<h:form prependId="false" enctype="multipart/form-data">
+			<div style="padding: 5px; width: 98%; margin: 0 auto;">
+				<p:growl id="messages" showDetail="true"/>
+				<p:messages />
+				<br/>
+				<p:panel id="toggleable" header="Crear formulario"  widgetVar="panel" style="margin-bottom:20px">
+					<div style="padding: 10px;">
+						<p:outputLabel value="Nombre: " style="font-weight: bold;" />
+						<p:inputText id="nombre" value="#{crearformulario.nombre}"  style="width: 100%;" required="true" />
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Descripcion: " style="font-weight: bold;" />
+						<p:inputText id="descripcion" value="#{crearformulario.descripcion}"  style="width: 100%;" required="true" />
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Fecha: " style="font-weight: bold; width: 100%;" />
+						<p:datePicker id="fecha" value="#{crearformulario.fechahora}" showIcon="true"  required="true" />
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Casillas " style="font-weight: bold;" />
+							<h:selectManyListbox value="#{crearformulario.casillas}">
+   								<f:selectItems value="#{crearformulario.casillasValues}" />
+   							</h:selectManyListbox>
+   						<p:message for="@previous" />
+					</div>
+				</p:panel>
+				<div style="padding: 10px;">
+					<p:commandButton value="Registrar Formulario"  update="messages" ajax="false" validateClient="true" action="#{crearformulario.crearFormulario}" style="width: 100%;" />
+					<p:spacer width="10" />
+					<p:button value="Cancelar" style="width: 100%;" href="/JSFPF/pages/listarObservaciones.xhtml" />
+				</div>
+			</div>
+		</h:form>
+	</h:body>
+</html>

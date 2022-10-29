@@ -1,0 +1,90 @@
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+	<h:head>
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		<f:metadata>
+		    <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+    		<f:event listener="#{detallebservacion.initConversation}" type="preRenderView" /> 
+		</f:metadata>
+	</h:head>
+	<h:body style="margin: 0px;">
+		
+		<h:form>
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+		
+		<p:tabMenu activeIndex="0">
+			<p:menuitem icon="pi pi-star" value="Ver Observaciones" outcome="listarObservaciones">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem icon="pi pi-cloud" value="Crear observacion" outcome="crearObservacion">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+		</p:tabMenu>
+		
+		<br/>
+		
+			
+		<div style="padding: 5px; width: 97%; margin: 0 auto;">
+			<p:fieldset legend="Captura de la observacion" style="margin-bottom:20px">
+        		<h:panelGrid columns="2" cellpadding="5" style="">
+        			<o:graphicImage value="#{detallebservacion.obsMBean.imagen}" dataURI="true" width="500" 
+        			rendered="#{not empty detallebservacion.obsMBean.imagen}" />
+ 	      		</h:panelGrid>    
+    		</p:fieldset>
+		</div>
+					
+		<div style="padding: 5px; width: 97%; margin: 0 auto;">
+			<p:panel id="basic" header="Detalle observacion"  widgetVar="panel" style="margin-bottom:20px">
+			
+				<div style="padding: 10px;">
+					<p:outputLabel value="Fenomeno: " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.categoriaFenomeno}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Fecha : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.fecha}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Descripcion : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.descripcion}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Departamento : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.departamento}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Localidad : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.localidad}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Latitud : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.latitud}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				<div style="padding: 10px;">
+					<p:outputLabel value="Longitud : " style="font-weight: bold; width: 100%;" />
+					<p:outputLabel value="#{detallebservacion.obsMBean.longitud}" style="font-weight: bold; width: 100%;" />
+				</div>
+				
+				
+			</p:panel>
+		</div>
+		
+	</h:body>
+</html>

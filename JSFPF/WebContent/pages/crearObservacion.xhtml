@@ -1,0 +1,93 @@
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+	<h:head>	 
+		<f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 	
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	</h:head>
+	<h:body style="margin: 0px;">
+		<h:form>
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+		<p:tabMenu activeIndex="1">
+			<p:menuitem icon="pi pi-star" value="Ver Observaciones" outcome="listarObservaciones">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem icon="pi pi-cloud" value="Crear observacion" outcome="crearObservacion">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+		</p:tabMenu>
+		<h:form prependId="false" enctype="multipart/form-data">
+			<div style="padding: 5px; width: 98%; margin: 0 auto;">
+				<p:growl id="messages" showDetail="true"/>
+				<p:messages />
+				<br/>
+				<p:panel id="toggleable" header="Crear observacion"  widgetVar="panel" style="margin-bottom:20px">
+					<div style="padding: 10px;">
+						<p:outputLabel value="Descripcion " style="font-weight: bold;" />
+						<p:inputText id="nombre" value="#{crearobservacion.descripcion}"  style="width: 100%;" required="true" />
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Departamento: " style="font-weight: bold;" />
+						<p:selectOneMenu style="width: 100%;"  value="#{crearobservacion.departamento}" required="true">
+							<f:selectItem itemLabel="SELECCIONAR DEPARTAMENTO"/>
+							<p:ajax event="itemSelect" update="localidadMenu"/>
+							<f:selectItems value="#{crearobservacion.enDpto}" />
+						</p:selectOneMenu>
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Localidad " style="font-weight: bold;" />
+						<p:selectOneMenu id="localidadMenu" style="width: 100%;"  value="#{crearobservacion.localidad}" required="true">
+							<f:selectItem itemLabel="SELECCIONAR LOCALIDAD"/>
+							<f:selectItems value="#{crearobservacion.localidadesValues}" />
+						</p:selectOneMenu>
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Fenomeno: " style="font-weight: bold;" />
+						<p:selectOneMenu style="width: 100%;"  value="#{crearobservacion.categoriaFenomeno}" required="true">
+							<f:selectItems value="#{crearobservacion.fenomenosValues}" />
+						</p:selectOneMenu>
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Fecha: " style="font-weight: bold; width: 100%;" />
+						<p:datePicker id="button" value="#{crearobservacion.fecha}" showIcon="true"  required="true" />
+						<p:message for="@previous" />
+					</div>
+					<div style="padding: 10px;">
+						<p:outputLabel value="Imagen: " style="font-weight: bold; width: 100%;" />
+						<o:inputFile id="file" value="#{crearobservacion.fileImage}" 
+            	accept="image/*" acceptMessage="Wrong file type! Should match {2}"
+            	maxsize="#{1024 * 1024}" maxsizeMessage="File too large! Should be no more than {2}" required="true"></o:inputFile>
+					</div>
+					<div style="padding: 10px;">
+						<p:panel id="mapa" header="Indique lugar del evento"  style="margin-bottom:20px">
+							<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwO7uCJUZ7ciy2kHdXpFcj5xCLx2ahg0"></script>
+							<p:growl id="growl" showDetail="true" />
+							<p:gmap id="gmap" center="-34.754703,-56.326882" zoom="10" type="HYBRID"  model="#{crearobservacion.draggableModel}" style="width:100%;height:400px">
+								<p:ajax event="markerDrag" listener="#{crearobservacion.onMarkerDrag}" update="growl" />
+							</p:gmap>
+						</p:panel>
+					</div>
+				</p:panel>
+				<div style="padding: 10px;">
+					<p:commandButton value="Registrar Observacion"  update="messages" ajax="false" validateClient="true" action="#{crearobservacion.crearObservacion}" style="width: 100%;" />
+					<p:spacer width="10" />
+					<p:button value="Cancelar" style="width: 100%;" href="/JSFPF/pages/listarObservaciones.xhtml" />
+				</div>
+			</div>
+		</h:form>
+	</h:body>
+</html>

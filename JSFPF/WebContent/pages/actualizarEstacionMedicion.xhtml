@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+ <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+ <f:event listener="#{modificarEM.initConversation}" type="preRenderView" /> 
+ <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+</h:head> 
+	
+	
+	   <h:body style="margin: 0px;">
+       
+       <h:form>
+       		<p:menubar>
+            	<f:facet name="options">
+            		<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+            	</f:facet>
+        	</p:menubar>
+        	</h:form>
+		
+        <p:tabMenu activeIndex="0">
+            <p:menuitem icon="pi pi-star" value="Inicio" outcome="listarEstacionMedicion">
+                <f:param name="i" value="0" />
+            </p:menuitem>
+            <p:menuitem icon="pi pi-user" value="Crear Estacion" outcome="crearEstacionMedicion">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+        </p:tabMenu>
+	<br/>
+
+        	<h:form>
+            <div style="padding: 5px; width: 98%; margin: 0 auto;">
+            
+            	
+            	<p:panel id="basic" header="Formulario" footer="Chaja" style="margin: 0 auto">
+            
+           		 <p:growl id="messages" showDetail="true"/>	
+            	
+            	  <p:messages />
+            	  
+            	  <div style="padding: 10px;">
+                    <p:outputLabel value="ID" style="font-weight: bold;" />
+                    <p:inputText id="id_usuario" required="true" value="#{modificarEM.id_estacionmedicion}"  style="width: 100%;" readonly= "#{facesContext.renderResponse}" />
+                    <p:message for="@previous" />
+                </div>
+            	
+            	<div style="padding: 10px;">
+                    <p:outputLabel value="nombre: " style="font-weight: bold;" />
+                    <p:inputText id="codigo" value="#{modificarEM.nombre}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Descripcion: " style="font-weight: bold;" />
+                    <p:inputText value="#{modificarEM.descripcion}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Parametro: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;" value="#{modificarEM.parametro}" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{modificarEM.unidadMedida}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Tipo de dato: " style="font-weight: bold;" />
+                    <p:selectOneMenu style="width: 100%;"  value="#{modificarEM.tipoDato}">
+                        <f:selectItems value="#{altacasilla.etdc}" />
+                    </p:selectOneMenu>
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Departamento: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{modificarEM.departamento}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Ciudad: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{modificarEM.ciudad}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Usuario: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{modificarEM.usuario}" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:commandButton value="Actualizar"  update="messages" ajax="false" validateClient="true" action="#{modificarEM.actulizarEM}" style="width: 100%;" />
+                    <p:spacer width="10" />
+                    <p:button value="Cancelar" style="width: 100%;" href="/JSFPF/pages/listarEstacionMedicion.xhtml" />
+                </div>
+            
+            
+            </p:panel>
+            </div>
+                       
+           </h:form> 
+  
+    </h:body>
+
+</html>

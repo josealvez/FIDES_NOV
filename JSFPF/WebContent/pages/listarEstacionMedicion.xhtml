@@ -1,0 +1,129 @@
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		 <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+		  <f:event listener="#{listarEM.init}" type="preRenderView" /> 
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		<style type="text/css">
+            .ui-datatable {
+                margin-bottom: 25px
+            }
+
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+            }
+        </style>
+	</h:head>
+	<h:body style="margin: 0px;">
+		<h:form>
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+			
+		
+            <p:tabMenu activeIndex="0">
+            <p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarCasilla">
+                <f:param name="i" value="0" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-globe" value="Crear Estación de Medición" outcome="crearEstacionMedicion">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
+                <f:param name="i" value="2" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-bell" value="Listar Casillas" outcome="listarCasilla">
+                <f:param name="i" value="3" />
+            </p:menuitem>
+                        
+            <p:menuitem icon="pi pi-globe" value="Listar Formularios CA" outcome="listarFormulario">
+                <f:param name="i" value="4" />
+            </p:menuitem>
+            
+        </p:tabMenu>
+		
+		  <br/>
+
+        <div style="padding: 5px; width: 97%; margin: 0 auto;" >
+        
+        
+        
+          <h:form>
+                <p:dataTable
+                	
+                    id="data"
+                    var="item"
+                    value="#{listarEM.listaEstaciones}"
+                    rowKey="#{item.nombre}"
+                    widgetVar="estacionesTable"
+                    emptyMessage="No hay estaciones disponibles"
+                    paginator="true"
+                    rows="15"
+                    filteredValue="#{listarEM.filteredEstaciones}"
+                    globalFilterFunction="#{listarEM.globalFilterFunction}"
+                >
+                    <f:facet name="header">
+                        <p:outputPanel>
+                        	
+                            <h:outputText value="Buscar estaciones: " />
+                            <p:inputText id="globalFilter" onkeyup="PF('estacionesTable').filter()" style="width: 150px;" placeholder="Buscar..." />
+                        </p:outputPanel>
+                        
+                    </f:facet>
+                  
+
+                 <p:column headerText="Nombre">
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+                
+				<p:column headerText="Descripcion">
+                    <h:outputText value="#{item.descripcion}" />
+                </p:column>
+                
+                <p:column headerText="Departamento">
+                    <h:outputText value="#{item.departamento}" />
+                </p:column>
+                
+                <p:column headerText="Ciudad">
+                    <h:outputText value="#{item.ciudad}" />
+                </p:column>
+                
+                <p:column headerText="Parametro">
+                    <h:outputText value="#{item.parametro}" />
+                </p:column>
+                
+                <p:column headerText="Medida">
+                    <h:outputText value="#{item.unidadMedida}" />
+                </p:column>
+                
+                <p:column headerText="Tipo de Dato">
+                    <h:outputText value="#{item.tipoDato}" />
+                </p:column>
+                
+                <p:column headerText="Acciones" style="text-align: center;">
+                        <p:button icon="pi pi-pencil" value="Editar" outcome="actualizarEstacionMedicion" style="width:60%; margin-bottom:5px;">
+                            <f:param name="nombre" value="#{item.nombre}" />
+                        </p:button>
+                        
+                        <p:button icon="pi pi-times-circle" value="Eliminar" outcome="eliminarEstacionMedicion" style="width:70%; margin-bottom:5px;">
+                            <f:param name="nombre" value="#{item.nombre}" />
+                        </p:button>
+                                            
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+       
+        </div>
+    </h:body>
+</html>

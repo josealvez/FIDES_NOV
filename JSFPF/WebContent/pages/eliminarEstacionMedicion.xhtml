@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" > 
+
+<h:head>
+ <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+ <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+</h:head> 
+	
+	<f:metadata>
+    <f:event listener="#{bajaEM.initConversation}" type="preRenderView" /> 
+     <f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 
+	</f:metadata>
+	
+	   <h:body style="margin: 0px;">
+       
+ 
+       
+       		<h:form>
+       		<p:menubar>
+            	<f:facet name="options">
+                	<p:commandButton value="Configuración" icon="pi pi-cog" actionListener="#{loginsessionseguridad.redireccionarUsuario}" />
+                	<p:commandButton value="Logout" icon="pi pi-home" actionListener="#{loginsessionseguridad.logout}" />
+            	</f:facet>
+        	</p:menubar>
+        	</h:form>
+
+        <p:tabMenu activeIndex="0">
+            <p:menuitem icon="pi pi-star" value="Inicio" outcome="listarEstacionMedicion">
+                <f:param name="i" value="0" />
+            </p:menuitem>
+            <p:menuitem icon="pi pi-user" value="Crear Nueva Estación" outcome="crearEstacionMedicion">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+        </p:tabMenu>
+       			
+	<br/>        
+        	<h:form>
+            <div style="padding: 5px; width: 98%; margin: 0 auto;">
+            
+            	
+            	<p:panel id="basic" header="Baja de Estación" footer="FIDES AIR" style="margin: 0 auto">
+            
+           		 <p:growl id="messages" showDetail="true"/>	
+            	
+            	  <p:messages />
+            	  
+                <div style="padding: 10px;">
+                    <p:outputLabel value="nombre: " style="font-weight: bold;" />
+                    <p:inputText id="codigo" value="#{bajaEM.nombre}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Descripcion: " style="font-weight: bold;" />
+                    <p:inputText value="#{bajaEM.descripcion}"  style="width: 100%;" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Parametro: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;" value="#{bajaEM.parametro}" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{bajaEM.unidadMedida}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Tipo de dato: " style="font-weight: bold;" />
+                    <p:selectOneMenu style="width: 100%;"  value="#{bajaEM.tipoDato}">
+                        <f:selectItems value="#{altacasilla.etdc}" />
+                    </p:selectOneMenu>
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Departamento: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{bajaEM.departamento}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Ciudad: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{bajaEM.ciudad}" />
+                    <p:message for="@previous" />
+                </div>
+                
+                <div style="padding: 10px;">
+                    <p:outputLabel value="Usuario: " style="font-weight: bold;" />
+                    <p:inputText style="width: 100%;"  value="#{bajaEM.usuario}" />
+                    <p:message for="@previous" />
+                </div>
+
+                <div style="padding: 10px;">
+                    <p:commandButton value="Bajar Estación"  update="messages" action="#{bajaEM.eliminar}" style="width: 100%;" />
+                    <p:spacer width="10" />
+                    <p:button value="Cancelar" style="width: 100%;" />
+                </div>
+            
+            
+            </p:panel>
+            </div>
+                       
+           </h:form> 
+  
+    </h:body>
+
+</html>
