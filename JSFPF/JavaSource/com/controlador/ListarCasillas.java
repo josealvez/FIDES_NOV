@@ -47,8 +47,7 @@ public class ListarCasillas implements Serializable{
         CasillaDTO cas = (CasillaDTO) value;
         return cas.getNombre().toLowerCase().contains(filterText)
                 || cas.getNombre().toLowerCase().contains(filterText)
-                || cas.getDescripcion().toLowerCase().contains(filterText)
-                || cas.getLugarubicacion().toLowerCase().contains(filterText);
+                || cas.getDescripcion().toLowerCase().contains(filterText);
     }
 	
 	public List<CasillaDTO> getListaCasilla() {

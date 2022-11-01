@@ -58,6 +58,7 @@ public class GestionFormularioBean implements IGestionFormularioBean {
 			fDTO.setFechahora(f.getFechaHora());
 			fDTO.setId_formulario(f.getId_formulario());
 			fDTO.setContienes(f.getContienes());
+			fDTO.setUsuario(f.getUsuario());
 			formsDTO.add(fDTO);
 		}		
 		return formsDTO;
@@ -72,6 +73,7 @@ public class GestionFormularioBean implements IGestionFormularioBean {
 		System.out.print(formularioDTO.getFechahora());
 		formularioAdd.setFechaHora(formularioDTO.getFechahora());
 		formularioAdd.setContienes(formularioDTO.getContienes());
+		formularioAdd.setUsuario(formularioDTO.getUsuario());
 		return formularioAdd;
 	}
 	
@@ -86,6 +88,7 @@ public class GestionFormularioBean implements IGestionFormularioBean {
 		fDTO.setId_formulario(f.getId_formulario());
 		fDTO.setNombre(f.getNombre());
 		fDTO.setContienes(f.getContienes());
+		fDTO.setUsuario(f.getUsuario());
 		return fDTO;
 	}
 	

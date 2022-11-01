@@ -100,6 +100,7 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
 			uDTO.setDocumentoCategoria(u.getDoc().getCategoria_nombre().name());
 			uDTO.setRol(u.getRol().getRol().name());
 			uDTO.setId_usuario(u.getId_usuario());
+			uDTO.setPasswd(u.getPasswd());
 			
 			usDTO.add(uDTO);
 		}
@@ -121,6 +122,28 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
 	    	uDTO.setDocumento(us.get(0).getDocumento());
 	    	uDTO.setEstadoUsuario(us.get(0).getEstado().getEstado_valor().name());
 	    	uDTO.setDireccion(us.get(0).getDireccion());
+	    	uDTO.setPasswd(us.get(0).getPasswd());
+		}
+    	
+    	return uDTO;
+    }
+    
+    private UsuarioDTO prepararUsuarioId(Long id) throws ServiciosException {
+		List <Usuario> us = uPersistencia.obtenerPorId(id);
+		UsuarioDTO uDTO = new UsuarioDTO();
+		
+		if(!us.isEmpty()){
+			uDTO.setId_usuario(us.get(0).getId_usuario());
+	    	uDTO.setNombre(us.get(0).getNombre());
+	    	uDTO.setApellido(us.get(0).getApellido());
+	    	uDTO.setUsername(us.get(0).getUsername());
+	    	uDTO.setEmail(us.get(0).getEmail());
+	    	uDTO.setRol(us.get(0).getRol().getRol().name());
+	    	uDTO.setDocumentoCategoria(us.get(0).getDoc().getCategoria_nombre().name());
+	    	uDTO.setDocumento(us.get(0).getDocumento());
+	    	uDTO.setEstadoUsuario(us.get(0).getEstado().getEstado_valor().name());
+	    	uDTO.setDireccion(us.get(0).getDireccion());
+	    	uDTO.setPasswd(us.get(0).getPasswd());
 		}
     	
     	return uDTO;
@@ -145,6 +168,8 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
     	
     	if ( usr != null) {
     		udto.setNombre(usr.getNombre());
+    		udto.setUsername(usr.getUsername());
+    		udto.setDireccion(usr.getDireccion());
     		udto.setApellido(usr.getApellido());
     		udto.setEmail(usr.getEmail());
     		udto.setRol(usr.getRol().getRol().toString());
@@ -191,6 +216,11 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
 		return prepararUsuarioEmail(email);
 		
 	}
+	@Override 
+	public UsuarioDTO obtenerUsuarioId(Long id) throws ServiciosException {
+		return prepararUsuarioId(id);
+		
+	} 
 	
 	@Override
 	public UsuarioDTO validarUsuario(String email, String password) throws ServiciosException, NoSuchAlgorithmException{

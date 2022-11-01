@@ -11,6 +11,8 @@ import com.daos.CasillaDAO;
 import com.daos.FormularioDAO;
 import com.dto.CasillaDTO;
 import com.entities.Casilla;
+import com.entities.Contiene;
+import com.entities.Formulario;
 import com.enumerados.EnumTipoDato;
 import com.exception.ServiciosException;
 
@@ -35,8 +37,7 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
     	Casilla casillaAdd = new Casilla();
     	
     	if(casillaDTO.getId_casilla() != null ) casillaAdd.setId_casilla(casillaDTO.getId_casilla());
-		casillaAdd.setParametro(casillaDTO.getParametro());
-		
+    	
 		for(EnumTipoDato td:EnumTipoDato.values()) {
 			if(td.toString().equalsIgnoreCase(casillaDTO.getTipoDato())) {
 				casillaAdd.setTipoDato(td);
@@ -46,8 +47,8 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
 		casillaAdd.setUnidadMedida(casillaDTO.getUnidadMedida());
 		casillaAdd.setNombre(casillaDTO.getNombre());
     	casillaAdd.setDescripcion(casillaDTO.getDescripcion());
-    	casillaAdd.setLugarubicacion(casillaDTO.getLugarubicacion());
     	casillaAdd.setContienes(casillaDTO.getContienes());
+    	casillaAdd.setUsuario(casillaDTO.getUsuario());
 		
 		return casillaAdd;
     }
@@ -63,37 +64,38 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
 			CasillaDTO casDTO = new CasillaDTO();
 
 			casDTO.setId_casilla(f.getId_casilla());
-			casDTO.setParametro(f.getParametro());
 			casDTO.setTipoDato(f.getTipoDato().name());
 			casDTO.setUnidadMedida(f.getUnidadMedida());
 			casDTO.setNombre(f.getNombre());
 			casDTO.setDescripcion(f.getDescripcion());
-			casDTO.setLugarubicacion(f.getLugarubicacion());
 			casDTO.setContienes(f.getContienes());
+			casDTO.setUsuario(f.getUsuario());
 	    	
 			casillasDTO.add(casDTO);
 		}
 		return casillasDTO;	
     }
     
-	private List<CasillaDTO> prepararCasillasPorFormulario(long pk) throws ServiciosException{
+	private List<CasillaDTO> prepararCasillasPorFormulario(Formulario form) throws ServiciosException{
 	    	
-	    	List<Casilla> casi = fPersistencia.obtenerCasillasPorFormulario(pk);
+	    	List<Contiene> con = fPersistencia.obtenerCasillasPorFormulario(form);
+	    	List<Casilla> casi = new ArrayList<Casilla>();
 			List<CasillaDTO> casillasDTO = new ArrayList<CasillaDTO>();
 			
-	
+			for (Contiene c : con) {
+				if (!c.getIsRegistro()) {
+					casi.add(c.getCasilla());
+				}
+			}
 			for(Casilla f : casi) {			
 				CasillaDTO casDTO = new CasillaDTO();
-	
 				casDTO.setId_casilla(f.getId_casilla());
-				casDTO.setParametro(f.getParametro());
 				casDTO.setTipoDato(f.getTipoDato().name());
 				casDTO.setUnidadMedida(f.getUnidadMedida());
 				casDTO.setNombre(f.getNombre());
 				casDTO.setDescripcion(f.getDescripcion());
-				casDTO.setLugarubicacion(f.getLugarubicacion());
 				casDTO.setContienes(f.getContienes());
-		    	
+				casDTO.setUsuario(f.getUsuario());
 				casillasDTO.add(casDTO);
 			}
 			return casillasDTO;	
@@ -107,13 +109,12 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
     	if(!fPersistencia.obtenerPorNombre(nombre).isEmpty()) {
     		Casilla f = fPersistencia.obtenerPorNombre(nombre).get(0);
     		cdto.setId_casilla(f.getId_casilla());
-    		cdto.setParametro(f.getParametro());
     		cdto.setTipoDato(f.getTipoDato().name());
     		cdto.setUnidadMedida(f.getUnidadMedida());
     		cdto.setNombre(f.getNombre());
     		cdto.setDescripcion(f.getDescripcion());
-    		cdto.setLugarubicacion(f.getLugarubicacion());
     		cdto.setContienes(f.getContienes());
+    		cdto.setUsuario(f.getUsuario());
 			
     		return cdto;
     	}
@@ -148,8 +149,8 @@ private Casilla prepararCasilla(CasillaDTO casillaDTO) throws ServiciosException
 	}
 	
 	@Override
-	public List<CasillaDTO> obtenerCasillasPorFormulario(long pk) throws ServiciosException {
-		List<CasillaDTO> fs = this.prepararCasillasPorFormulario(pk);
+	public List<CasillaDTO> obtenerCasillasPorFormulario(Formulario form) throws ServiciosException {
+		List<CasillaDTO> fs = this.prepararCasillasPorFormulario(form);
 		return fs;
 	}
 	

@@ -10,16 +10,26 @@ public class CasillaDTO implements Serializable{
 	
 	private Long id_casilla;
 	private String descripcion;
-	private String lugarubicacion;
 	private String nombre;
-	private String parametro;
 	private String tipoDato;
 	private String unidadMedida;
 	private List<Contiene> contienes;	
+	private String usuario;
 	
 	public CasillaDTO() {
 		
 	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 
 
 	public List<Contiene> getContienes() {
@@ -47,29 +57,12 @@ public class CasillaDTO implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public String getLugarubicacion() {
-		return lugarubicacion;
-	}
-
-	public void setLugarubicacion(String lugarubicacion) {
-		this.lugarubicacion = lugarubicacion;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getParametro() {
-		return parametro;
-	}
-
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
 	}
 
 	public String getTipoDato() {

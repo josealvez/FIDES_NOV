@@ -95,13 +95,13 @@
 
                 <div style="padding: 10px;">
                     <p:outputLabel value="Username: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;"  value="#{actualizarusuario.userName}" />
+                    <p:inputText style="width: 100%;" readonly="true" value="#{actualizarusuario.userName}" />
                     <p:message for="@previous" />
                 </div>
 
                 <div style="padding: 10px;">
                     <p:outputLabel value="Password: " style="font-weight: bold;" />
-                    <p:password style="width: 100%;"  value="#{actualizarusuario.password}" />
+                    <p:password style="width: 100%;"  disabled="true" value="#{actualizarusuario.password}" />
                     <p:message for="@previous" />
                 </div>
 

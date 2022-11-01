@@ -20,4 +20,5 @@ public interface IGestionUsuarioBean {
 	public void bajaLogicaUsuario(String email) throws  ServiciosException;
 	public UsuarioDTO validarUsuario(String email, String password) throws ServiciosException, NoSuchAlgorithmException;
 //	public void validarLDAP(String user, String token) throws NamingException, IOException, ServiciosException;
+	UsuarioDTO obtenerUsuarioId(Long id) throws ServiciosException;
 }

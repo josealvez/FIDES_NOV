@@ -116,7 +116,6 @@ public class ActualizarUsuario implements Serializable{
 		return oldPasswd;
 	}
 
-
 	public GestionUsuarioBean getUsuarioEJB() {
 		return usuarioEJB;
 	}
@@ -234,16 +233,7 @@ public class ActualizarUsuario implements Serializable{
 	
 	public String actulizarUsuario() {
 		
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (this.password.trim().length() > 0) {
-			if( (this.password.trim().length() < 2) || (this.password.trim().length() > 50)){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validacion",  "El password debe contener entre 2 y 50 caracteres.");
-			context.addMessage( "El password debe contener entre 2 y 50 caracteres.", message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-			}
-		}
-		
+		FacesContext context = FacesContext.getCurrentInstance();		
 		
 		if(this.nombre.trim().equals("")) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validacion", "El nombre debe contener entre 2 y 50 caracteres.");
@@ -281,18 +271,6 @@ public class ActualizarUsuario implements Serializable{
 			return " ";
 		}
 		
-		if(this.userName.trim().equals("")) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación", "El userName debe contener entre 2 y 50 caracteres.");
-			context.addMessage( "El userName debe contener entre 2 y 50 caracteres." , message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-		}else if( (this.userName.trim().length() < 2) || (this.userName.trim().length() > 50)){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validacion",  "El userName debe contener entre 2 y 50 caracteres.");
-			context.addMessage( "El userName debe contener entre 2 y 50 caracteres.", message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-		}
-		
 		if(this.documento.trim().equals("")) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validacion", "El documento debe contener entre 2 y 50 caracteres.");
 			context.addMessage( "El documento debe contener entre 2 y 50 caracteres." , message);
@@ -311,7 +289,6 @@ public class ActualizarUsuario implements Serializable{
 			UsuarioDTO usuario = new UsuarioDTO();
 			usuario.setId_usuario(this.getId_usuario());
 			usuario.setEmail(this.getEmail());
-			usuario.setUsername(this.getUserName());
 			usuario.setNombre(this.getNombre());
 			usuario.setApellido(this.getApellido());
 			usuario.setDireccion(this.getDireccion());
@@ -319,7 +296,11 @@ public class ActualizarUsuario implements Serializable{
 			usuario.setDocumentoCategoria(this.getDocumentoCategoria());
 			usuario.setEstadoUsuario(this.getEstadoUsuario());
 			usuario.setRol(this.getRolUsuairo());
-			if(this.getPassword() != null ) usuario.setPasswd(this.getOldPasswd());
+			UsuarioDTO us = usuarioEJB.obtenerUsuarioId(this.getId_usuario());
+			usuario.setPasswd(us.getPasswd());					
+			usuario.setUsername(us.getUsername());
+				
+			
 			
 			
 			usuarioEJB.actualizarUsuario(usuario);

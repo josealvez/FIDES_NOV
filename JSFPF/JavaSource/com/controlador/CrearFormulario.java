@@ -1,7 +1,6 @@
 package com.controlador;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +13,7 @@ import javax.inject.Named;
 
 import com.dto.CasillaDTO;
 import com.dto.FormularioDTO;
+import com.dto.UsuarioDTO;
 import com.entities.Casilla;
 import com.entities.Contiene;
 import com.entities.Formulario;
@@ -40,8 +40,6 @@ public class CrearFormulario implements Serializable {
 	
 	private String nombre;
 	
-	private String emailAficionado;
-	
 	private Date fechahora;
 	
 	private String descripcion;
@@ -65,14 +63,6 @@ public class CrearFormulario implements Serializable {
 
 	public void setgFormulario(GestionFormularioBean gFormulario) {
 		this.gFormulario = gFormulario;
-	}
-
-	public String getEmailAficionado() {
-		return emailAficionado;
-	}
-
-	public void setEmailAficionado(String emailAficionado) {
-		this.emailAficionado = emailAficionado;
 	}
 
 	public Date getFechahora() {
@@ -136,9 +126,7 @@ public class CrearFormulario implements Serializable {
 						casilla.setId_casilla(cas.getId_casilla());
 						casilla.setDescripcion(cas.getDescripcion());
 						casilla.setId_casilla(cas.getId_casilla());
-						casilla.setLugarubicacion(cas.getLugarubicacion());
 						casilla.setNombre(cas.getNombre());
-						casilla.setParametro(cas.getParametro());
 						casilla.setTipoDato(Enum.valueOf(EnumTipoDato.class, cas.getTipoDato()));
 						casilla.setUnidadMedida(cas.getUnidadMedida());
 						casillasIncluidas.add(casilla);
@@ -146,30 +134,32 @@ public class CrearFormulario implements Serializable {
 				}
 			}
 			//subo el formulario
+			UsuarioDTO usr = (UsuarioDTO) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 			FormularioDTO form = new FormularioDTO();
+			form.setUsuario(usr.getUsername());
 			form.setNombre(this.nombre);
 			form.setDescripcion(this.descripcion);
 			form.setFechahora(this.fechahora);
 			long id = gFormulario.agregarFormulario(form); //se sube
 			
-			Date now = form.getFechahora();
-			
 			//subo los contenedores que conectan
-			form = gFormulario.obtenerFormularioPorId(id); //obtengo el recien agregado
+			//obtengo el recien agregado
+			form = gFormulario.obtenerFormularioPorId(id); 
 			//convierto DTO a entity
 			Formulario formE = new Formulario();
 			formE.setDescripcion(form.getDescripcion());
 			formE.setFechaHora(form.getFechahora());
 			formE.setId_formulario(form.getId_formulario());
 			formE.setNombre(form.getNombre());
+			formE.setUsuario(form.getUsuario());
 			
 			//cargo y subo los registros
 			for (Casilla casi : casillasIncluidas) {
 				Contiene con = new Contiene();
-				con.setValoringresado("Sin valor");
 				con.setFormulario(formE);
 				con.setCasilla(casi);
-				con.setFechaRegistro(now);
+				con.setFecharegistro(null);
+				con.setIsRegistro(false);
 				gRegistro.AltaRegistro(con);
 			}
 			

@@ -77,6 +77,18 @@ public class UsuarioDAO implements IUsuarioDAO {
 			throw new ServiciosException("No se pudo encontrar al usuario por el correo " + email);
 		}
 	}
+	
+	@Override
+	public List<Usuario> obtenerPorId(Long id) throws ServiciosException {
+		try {
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.id_usuario = :e", Usuario.class)
+				.setParameter("e", id);
+		return query.getResultList();
+		} catch (PersistenceException e) {
+			throw new ServiciosException("No se pudo encontrar al usuario por el id " + id);
+		}
+	}
+	
 
 	@Override
 	public Usuario findForMerge(Long pk) throws ServiciosException {

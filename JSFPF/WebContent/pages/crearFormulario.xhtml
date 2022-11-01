@@ -8,8 +8,10 @@
 	<h:head>	 
 		<f:event listener="#{loginsessionseguridad.validarSession}" type="preRenderView" /> 	
 		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		
 	</h:head>
 	<h:body style="margin: 0px;">
+	<link rel="stylesheet" type="assets/css" href="styles.css"/>
 		<h:form>
 			<p:menubar>
 				<f:facet name="options">
@@ -18,13 +20,32 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
-		<p:tabMenu activeIndex="1">
-			<p:menuitem icon="pi pi-star" value="Ver Formularios" outcome="listarFormulario">
-				<f:param name="i" value="0" />
-			</p:menuitem>
-			<p:menuitem icon="pi pi-cloud" value="Crear Formulario" outcome="crearFormulario">
-				<f:param name="i" value="1" />
-			</p:menuitem>
+		<p:tabMenu activeIndex="5">
+			
+			<p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarEstacionMedicion">
+                <f:param name="i" value="4" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-globe" value="Crear Estación de Medición" outcome="crearEstacionMedicion">
+                <f:param name="i" value="1" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
+                <f:param name="i" value="2" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-bell" value="Listar Casillas" outcome="listarCasilla">
+                <f:param name="i" value="3" />
+            </p:menuitem>
+                        
+            <p:menuitem icon="pi pi-globe" value="Listar Formularios CA" outcome="listarFormulario">
+                <f:param name="i" value="4" />
+            </p:menuitem>
+            
+            <p:menuitem icon="pi pi-globe" value="Crear Formularios CA" outcome="crearFormulario">
+                <f:param name="i" value="5" />
+            </p:menuitem>
+		
 		</p:tabMenu>
 		
 		<h:form prependId="false" enctype="multipart/form-data">
@@ -43,18 +64,22 @@
 						<p:inputText id="descripcion" value="#{crearformulario.descripcion}"  style="width: 100%;" required="true" />
 						<p:message for="@previous" />
 					</div>
-					<div style="padding: 10px;">
+					
+				<div id="wrapper">
+					<div id="div1" style="padding: 10px;">
 						<p:outputLabel value="Fecha: " style="font-weight: bold; width: 100%;" />
-						<p:datePicker id="fecha" value="#{crearformulario.fechahora}" showIcon="true"  required="true" />
+						<p:datePicker id="inline" value="#{crearformulario.fechahora}" inline="true" showTime="true" timeInput="true" />
 						<p:message for="@previous" />
 					</div>
-					<div style="padding: 10px;">
+					
+					<div id="div2" style="padding: 10px; height: 100px;">
 						<p:outputLabel value="Casillas " style="font-weight: bold;" />
 							<h:selectManyListbox value="#{crearformulario.casillas}">
    								<f:selectItems value="#{crearformulario.casillasValues}" />
    							</h:selectManyListbox>
    						<p:message for="@previous" />
 					</div>
+				</div>
 				</p:panel>
 				<div style="padding: 10px;">
 					<p:commandButton value="Registrar Formulario"  update="messages" ajax="false" validateClient="true" action="#{crearformulario.crearFormulario}" style="width: 100%;" />

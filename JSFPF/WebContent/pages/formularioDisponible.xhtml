@@ -30,32 +30,13 @@
 			</p:menubar>
 		</h:form>
 		
-		<p:tabMenu activeIndex="4">
-			
-			<p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarEstacionMedicion">
-                <f:param name="i" value="0" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-globe" value="Crear Estación de Medición" outcome="crearEstacionMedicion">
-                <f:param name="i" value="1" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
-                <f:param name="i" value="2" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-bell" value="Listar Casillas" outcome="listarCasilla">
-                <f:param name="i" value="3" />
-            </p:menuitem>
-                        
-            <p:menuitem icon="pi pi-globe" value="Listar Formularios CA" outcome="listarFormulario">
-                <f:param name="i" value="4" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-globe" value="Crear Formularios CA" outcome="crearFormulario">
-                <f:param name="i" value="5" />
-            </p:menuitem>
-		
+		<p:tabMenu activeIndex="0">
+			<p:menuitem icon="pi pi-star" value="Ver Formularios Disponibles" outcome="formularioDisponible">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem icon="pi pi-cloud" value="Ver Registros" outcome="listarRegistros">
+				<f:param name="i" value="1" />
+			</p:menuitem>
 		</p:tabMenu>
 		<br/>
 		
@@ -109,7 +90,7 @@
                 		
                 		<p:column headerText="Acciones" style="text-align: center;">
 							<p:spacer width="10" />
-							<p:button icon="pi pi-compass" value="Ver" outcome="detalleObservacion">
+							<p:button icon="pi pi-compass" value="Insertar un Registro" outcome="crearRegistro">
 							<f:param name="formID" value="#{item.formulario.id_formulario}" />
 							</p:button>
 						</p:column>

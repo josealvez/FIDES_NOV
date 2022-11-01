@@ -14,9 +14,9 @@ import com.entities.Contiene;
 import com.exception.ServiciosException;
 import com.negocio.GestionRegistroBean;
 
-@Named("listarformularios")
+@Named("listarregistros")
 @ConversationScoped	
-public class ListarFormularios implements Serializable{
+public class ListarRegistros implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +32,7 @@ public class ListarFormularios implements Serializable{
 		try {
 				List<Contiene> listaSinFiltro = servicioRegistro.ListarRegistros();
 				for (Contiene con : listaSinFiltro) {
-					if (!con.getIsRegistro()) {
+					if (con.getIsRegistro()) {
 						listacontienes.add(con);
 					}
 				}
@@ -53,6 +53,7 @@ public class ListarFormularios implements Serializable{
 	}
 
 	public List<Contiene> getListaContiene() {
+		init();
 		return listacontienes;
 	}
 

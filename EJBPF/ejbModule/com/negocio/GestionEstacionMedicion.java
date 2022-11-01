@@ -86,11 +86,6 @@ public class GestionEstacionMedicion implements IGestionEstacionMedicion {
     	return null;
     }
 	
-	private EstacionMedicion prepararActualizarEM(EstacionMedicionDTO emDTO) throws ServiciosException {
-		EstacionMedicion em = emPersistencia.findForMerge(emDTO.getId_estacionmedicion());
-		return em;
-	}
-	
 	@Override
 	public void agregarEM(EstacionMedicionDTO emDTO) throws ServiciosException {
 		emPersistencia.altaEM(this.prepararEM(emDTO));

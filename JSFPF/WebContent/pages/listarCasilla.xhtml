@@ -50,6 +50,10 @@
                 <f:param name="i" value="4" />
             </p:menuitem>
             
+            <p:menuitem icon="pi pi-globe" value="Crear Formularios CA" outcome="crearFormulario">
+                <f:param name="i" value="5" />
+            </p:menuitem>
+            
         </p:tabMenu>
 		
 		  <br/>
@@ -78,22 +82,26 @@
                     </f:facet>
                   
 
-                 <p:column headerText="Nombre">
+                <p:column headerText="Nombre">
                     <h:outputText value="#{item.nombre}" />
-                </p:column>
-
-                <p:column headerText="Lugar Ubicacion">
-                    <h:outputText value="#{item.lugarubicacion}" />
                 </p:column>
 
                 <p:column headerText="Descripcion">
                     <h:outputText value="#{item.descripcion}" />
                 </p:column>
                 
-                <p:column headerText="Datos">
-                    <h:outputText value="#{item.parametro}" />
+                <p:column headerText="Unidad">
+                    <h:outputText value="#{item.unidadMedida}" />
                 </p:column>
-
+                
+                <p:column headerText="Tipo de Dato">
+                    <h:outputText value="#{item.tipoDato}" />
+                </p:column>
+                
+                <p:column headerText="Autor">
+                    <h:outputText value="#{item.usuario}" />
+                </p:column>
+           
                           <p:column headerText="Acciones" style="text-align: center;">
                 
                     <p:spacer width="10" />

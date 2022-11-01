@@ -14,10 +14,21 @@ public class EstacionMedicionDTO implements Serializable {
 	private  String departamento;
 	private  String ciudad;
 	private  String usuario;
+	private Double[] coordenadas;
 	
 	public EstacionMedicionDTO() {
 		
 	}
+
+	public Double[] getCoordenadas() {
+		return coordenadas;
+	}
+
+
+	public void setCoordenadas(Double[] coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+
 
 	public Long getId_estacionmedicion() {
 		return id_estacionmedicion;

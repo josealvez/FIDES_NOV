@@ -30,32 +30,13 @@
 			</p:menubar>
 		</h:form>
 		
-		<p:tabMenu activeIndex="4">
-			
-			<p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarEstacionMedicion">
-                <f:param name="i" value="0" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-globe" value="Crear Estación de Medición" outcome="crearEstacionMedicion">
-                <f:param name="i" value="1" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-cloud" value="Crear Casilla" outcome="crearCasilla">
-                <f:param name="i" value="2" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-bell" value="Listar Casillas" outcome="listarCasilla">
-                <f:param name="i" value="3" />
-            </p:menuitem>
-                        
-            <p:menuitem icon="pi pi-globe" value="Listar Formularios CA" outcome="listarFormulario">
-                <f:param name="i" value="4" />
-            </p:menuitem>
-            
-            <p:menuitem icon="pi pi-globe" value="Crear Formularios CA" outcome="crearFormulario">
-                <f:param name="i" value="5" />
-            </p:menuitem>
-		
+		<p:tabMenu activeIndex="1">
+			<p:menuitem icon="pi pi-star" value="Ver Formularios Disponibles" outcome="formularioDisponible">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem icon="pi pi-cloud" value="Ver Registros" outcome="listarRegistros">
+				<f:param name="i" value="1" />
+			</p:menuitem>
 		</p:tabMenu>
 		<br/>
 		
@@ -64,19 +45,19 @@
 				<p:dataTable
                     id="data"
                     var="item"
-                    value="#{listarformularios.listaContiene}"
-                    sortBy="#{item.formulario.nombre}"
+                    value="#{listarregistros.listaContiene}"
+                    sortBy="#{item.fecharegistro}"
                     widgetVar="formularioTable"
-                    emptyMessage="No hay formularios disponibles"
+                    emptyMessage="No hay registros disponibles"
                     paginator="true"
                     rows="15"
-                    filteredValue="#{listarformularios.filteredContiene}"
-                    globalFilterFunction="#{listarformularios.globalFilterFunction}">
+                    filteredValue="#{listarregistros.filteredContiene}"
+                    globalFilterFunction="#{listarregistros.globalFilterFunction}">
 					
 					<f:facet name="header">
                         <p:outputPanel>
                         	
-                            <h:outputText value="Buscar formularios: " />
+                            <h:outputText value="Buscar registros: " />
                             <p:inputText id="globalFilter" onkeyup="PF('formularioTable').filter()" style="width: 150px;" placeholder="Buscar..." />
                         </p:outputPanel>
                         
@@ -86,55 +67,54 @@
                         
                			<p:column colspan="1">
                    			<div style="vertical-align: middle">
-                        		<h:outputText value="Formulario: #{item.formulario.nombre}"/>
+                        		<h:outputText value="#{item.formulario.nombre}"/>
                     		</div>
                 		</p:column>
                 		
                 		
                 		
                 		<p:column colspan="1">
-                   			<div style="vertical-align: middle">
-                        		<h:outputText value=" #{item.formulario.descripcion}"/>
+                		</p:column>
+                		
+                		<p:column>
+                			<div style="vertical-align: middle">
+                        		<h:outputText value="Fecha: #{item.fecharegistro}"/>
                     		</div>
                 		</p:column>
                 		
-                		<p:column colspan="1">
-                		</p:column>
-                		
-                		<p:column colspan="1">
-                		<div style="vertical-align: middle">
-                        		<h:outputText value=" #{item.formulario.usuario}"/>
+                		<p:column>
+                			<div style="vertical-align: middle">
+                        		<h:outputText value="Localidad #{item.fecharegistro}"/>
                     		</div>
                 		</p:column>
+                		
                 		
                 		<p:column headerText="Acciones" style="text-align: center;">
 							<p:spacer width="10" />
-							<p:button icon="pi pi-compass" value="Ver" outcome="detalleObservacion">
+							<p:button icon="pi pi-compass" value="Insertar un Registro" outcome="crearRegistro">
 							<f:param name="formID" value="#{item.formulario.id_formulario}" />
 							</p:button>
 						</p:column>
             		</p:headerRow>
-       
-					<p:column headerText="Formulario y Casillas">
-						<h:outputText value="#{item.casilla.nombre}" />
-					</p:column>
-					
-					<p:column headerText="Descripcion">
-						<h:outputText value="#{item.casilla.descripcion}" />
-					</p:column>
-					
+ 
 					<p:column headerText="Medicion">
 						<h:outputText value="#{item.casilla.unidadMedida}" />
 					</p:column>
 					
-					<p:column headerText="Autor">
-						<h:outputText value="#{item.casilla.usuario}" />
+					<p:column headerText="Datos">
+						<h:outputText value="#{item.registro}" />
 					</p:column>
 					
-					<p:column headerText="Tipo de Dato">
+					<p:column headerText="Informacion">
 						<h:outputText value="#{item.casilla.tipoDato}" />
-					</p:column>
+					</p:column>			
 					
+					<p:column headerText="Localidad y Autoría">
+						<h:outputText value="#{item.usuario}" disabled="true"/>
+					</p:column>	
+					
+					<p:column headerText="Ver más">
+					</p:column>			
 					
 				</p:dataTable>
 			</h:form>

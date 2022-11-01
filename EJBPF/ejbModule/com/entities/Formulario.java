@@ -32,25 +32,23 @@ public class Formulario implements Serializable {
 	
 	@Column(length = 200)
 	private  String descripcion;
-
-//	
-//
-//	@ManyToMany(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//        name = "Formulario_Casillas", 
-//        joinColumns = { @JoinColumn(name = "id_formulario") }, 
-//        inverseJoinColumns = { @JoinColumn(name = "id_casilla") }
-//    )
-//	Set<Casilla> casillas = new HashSet<>();
-
-	@Column(name = "validar")
-	private boolean validarInvestigador;
 	
 	//bi-directional many-to-one association to Contiene
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="formulario")
 	private List<Contiene> contienes;	
 	//
 	
+	@Column
+	private String usuario;
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -66,16 +64,6 @@ public class Formulario implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-
-	public boolean isValidarInvestigador() {
-		return validarInvestigador;
-	}
-
-
-	public void setValidarInvestigador(boolean validarInvestigador) {
-		this.validarInvestigador = validarInvestigador;
 	}
 
 

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.entities.Casilla;
+import com.entities.Contiene;
+import com.entities.Formulario;
 import com.exception.ServiciosException;
 
 @Remote
@@ -22,6 +24,6 @@ public interface ICasillaDAO {
 
 	Casilla findForMerge(Long pk) throws ServiciosException;
 
-	List<Casilla> obtenerCasillasPorFormulario(long id) throws ServiciosException;
+	List<Contiene> obtenerCasillasPorFormulario(Formulario f) throws ServiciosException;
 
 }

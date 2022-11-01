@@ -19,7 +19,11 @@ public class Contiene implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqContiene")
 	private long idcontiene;
 
-	private String valoringresado;
+	private String registro;
+	
+	private String usuario;
+	
+	private Boolean isRegistro;
 	
 	private java.util.Date fecharegistro;
 
@@ -30,11 +34,54 @@ public class Contiene implements Serializable {
 
 	//bi-directional many-to-one association to Formulario
 	@ManyToOne
-	@JoinColumn(name="IDFORMULARIOS")
+	@JoinColumn(name="IDFORMULARIOS", nullable = true)
 	private Formulario formulario;
 
 	public Contiene() {
 	}
+
+	
+	public Boolean getIsRegistro() {
+		return isRegistro;
+	}
+
+
+	public void setIsRegistro(Boolean isRegistro) {
+		this.isRegistro = isRegistro;
+	}
+
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+
+	public String getRegistro() {
+		return registro;
+	}
+
+
+	public void setRegistro(String registro) {
+		this.registro = registro;
+	}
+
+
+	public java.util.Date getFecharegistro() {
+		return fecharegistro;
+	}
+
+
+	public void setFecharegistro(java.util.Date fecharegistro) {
+		this.fecharegistro = fecharegistro;
+	}
+
 
 	public long getIdcontiene() {
 		return this.idcontiene;
@@ -44,14 +91,6 @@ public class Contiene implements Serializable {
 		this.idcontiene = idcontiene;
 	}
 
-	public String getValoringresado() {
-		return this.valoringresado;
-	}
-
-	public void setValoringresado(String valoringresado) {
-		this.valoringresado = valoringresado;
-	}
-	
 	public java.util.Date getFechaRegistro() {
 		return this.fecharegistro;
 	}

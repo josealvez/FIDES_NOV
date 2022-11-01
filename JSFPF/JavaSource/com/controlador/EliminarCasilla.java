@@ -40,8 +40,6 @@ public class EliminarCasilla implements Serializable{
 					this.setId_casilla(fs.getId_casilla());
 					this.descripcion = fs.getDescripcion();
 					this.nombre = fs.getNombre();
-					this.lugarubicacion = fs.getLugarubicacion();						
-					this.setParametro(fs.getParametro());
 					this.unidadMedida = fs.getUnidadMedida();
 					this.tipoDato = fs.getTipoDato();
 					

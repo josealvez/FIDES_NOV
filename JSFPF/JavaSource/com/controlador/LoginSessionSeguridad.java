@@ -55,10 +55,10 @@ public class LoginSessionSeguridad  implements Serializable{
 	}
 	
 	public void vistaInvestigador (ActionEvent event) throws IOException{		
-		  FacesContext.getCurrentInstance().getExternalContext().redirect("/JSFPF/pages/listarCasilla.xhtml?faces-redirect=true?i=1");
+		  FacesContext.getCurrentInstance().getExternalContext().redirect("/JSFPF/pages/listarFormulario.xhtml?faces-redirect=true?i=1");
 	}
 	
 	public void vistaAficionado (ActionEvent event) throws IOException{		
-		  FacesContext.getCurrentInstance().getExternalContext().redirect("/JSFPF/pages/listarObservaciones.xhtml?faces-redirect=true?i=1");
+		  FacesContext.getCurrentInstance().getExternalContext().redirect("/JSFPF/pages/formularioDisponible.xhtml?faces-redirect=true?i=1");
 	}
 }

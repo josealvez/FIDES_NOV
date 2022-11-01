@@ -22,8 +22,9 @@
         	</p:menubar>
 			</h:form>
 		
-     <p:tabMenu activeIndex="2">
-            <p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarEstacionMedicion">
+		<p:tabMenu activeIndex="2">
+			
+			<p:menuitem icon="pi pi-star" value="Listar Estaciones" outcome="listarEstacionMedicion">
                 <f:param name="i" value="0" />
             </p:menuitem>
             
@@ -43,7 +44,11 @@
                 <f:param name="i" value="4" />
             </p:menuitem>
             
-        </p:tabMenu>
+            <p:menuitem icon="pi pi-globe" value="Crear Formularios CA" outcome="crearFormulario">
+                <f:param name="i" value="5" />
+            </p:menuitem>
+		
+		</p:tabMenu>
        
         <br/>
   
@@ -73,22 +78,11 @@
                 </div>
 
                 <div style="padding: 10px;">
-                    <p:outputLabel value="Lugar Ubicacion: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;" value="#{altacasilla.lugarubicacion}" />
-                    <p:message for="@previous" />
-                </div>
-
-                <div style="padding: 10px;">
-                    <p:outputLabel value="Parametro: " style="font-weight: bold;" />
-                    <p:inputText style="width: 100%;"  value="#{altacasilla.parametro}" />
+                    <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
+                    <p:inputText value="#{altacasilla.unidadMedida}"  style="width: 100%;" />
                     <p:message for="@previous" />
                 </div>
                 
-                <div style="padding: 10px;">
-                    <p:outputLabel value="Unidad Medida: " style="font-weight: bold;" />
-                    <p:inputText value="#{altacasilla.unidadMedida}"  style="width: 100%;" />>
-                    <p:message for="@previous" />
-                </div>
                 <div style="padding: 10px;">
                     <p:outputLabel value="Tipo de dato: " style="font-weight: bold;" />
                     <p:selectOneMenu style="width: 100%;"  value="#{altacasilla.tipoDato}">

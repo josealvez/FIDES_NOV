@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.validation.constraints.Size;
 
 import com.dto.CasillaDTO;
+import com.dto.UsuarioDTO;
 import com.enumerados.EnumTipoDato;
 import com.exception.ServiciosException;
 import com.negocio.GestionCasillaBean;
@@ -25,14 +26,8 @@ public class CrearCasilla implements Serializable {
 	@Size(min=3,max=50, message = "debe contener entre 3 y 50 caracteres.")
 	private String descripcion;
 	
-	@Size(min=3,max=30, message = "debe contener entre 3 y 10 caracteres.")
-	private String lugarubicacion;
-	
 	@Size(min=3,max=50, message = "debe contener entre 3 y 10 caracteres.")
 	private String nombre;
-	
-	@Size(max=10, message = "debe contener entre hasta 10 caracteres.")
-	private String parametro;
 	
 	@Size(min=2,max=40, message = "El tipo de dato debe contener entre 2 y 40 caracteres.")
 	private String tipoDato;
@@ -43,7 +38,15 @@ public class CrearCasilla implements Serializable {
 	@Size(min=3,max=40, message = "debe contener entre 3 y 10 caracteres.")
 	private String unidadMedida;
 	
-	
+	private String usuario;
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 
 	public GestionCasillaBean getCasillaEJB() {
 		return casillaEJB;
@@ -61,28 +64,12 @@ public class CrearCasilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public String getLugarubicacion() {
-		return lugarubicacion;
-	}
-
-	public void setLugarubicacion(String lugarubicacion) {
-		this.lugarubicacion = lugarubicacion;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getParametro() {
-		return parametro;
-	}
-
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
 	}
 
 	public String getTipoDato() {
@@ -136,31 +123,7 @@ public String crearCasilla() {
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return " ";
 		}
-		
-		if(this.lugarubicacion.trim().equals("")) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación", "debe contener entre 3 y 50 caracteres.");
-			context.addMessage( "debe contener entre 3 y 50 caracteres." , message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-		}else if( (this.lugarubicacion.length() < 3) || (this.lugarubicacion.length() > 50)){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación",  "debe contener entre 3 y 50 caracteres.");
-			context.addMessage( "debe contener entre 3 y 50 caracteres.", message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-			}
 
-		if(this.parametro.trim().equals("")) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación", "debe contener entre 3 y 50 caracteres.");
-			context.addMessage( "debe contener entre 3 y 50 caracteres." , message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-		}else if( (this.parametro.length() > 10)){
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación",  "debe contener entre 3 y 50 caracteres.");
-			context.addMessage( "debe contener entre 3 y 50 caracteres.", message);
-			context.getExternalContext().getFlash().setKeepMessages(true);
-			return " ";
-			}
-		
 		if(this.unidadMedida.trim().equals("")) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación", "debe contener entre 3 y 50 caracteres.");
 			context.addMessage( "debe contener entre 3 y 50 caracteres." , message);
@@ -174,15 +137,13 @@ public String crearCasilla() {
 		}
 		
 		try {
-			
+			UsuarioDTO usr = (UsuarioDTO) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 			CasillaDTO casilla = new CasillaDTO();
-			
-			casilla.setParametro(this.getParametro());
 			casilla.setTipoDato(this.getTipoDato());
 			casilla.setUnidadMedida(this.getUnidadMedida());
 			casilla.setNombre(this.getNombre());
 			casilla.setDescripcion(this.getDescripcion());
-			casilla.setLugarubicacion(this.getLugarubicacion());
+			casilla.setUsuario(usr.getUsername());
 	    	
 			casillaEJB.agregarCasilla(casilla);
 			
@@ -196,8 +157,6 @@ public String crearCasilla() {
 			context.addMessage("", message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
 	        return " ";
-			
-			
 		}
 		
 		//POST-Redirect-GET 

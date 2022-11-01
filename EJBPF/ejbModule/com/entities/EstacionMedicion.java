@@ -48,6 +48,9 @@ public class EstacionMedicion implements Serializable {
 	@Column(length = 80, nullable = false)
 	private  String usuario;
 
+	@Column(nullable = false)
+	private double[] coordenadas; //lat y long
+	//nextdouble();
 	public Long getId_estacionmedicion() {
 		return id_estacionmedicion;
 	}

@@ -11,6 +11,8 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
+import com.entities.Contiene;
+import com.entities.Formulario;
 import com.exception.ServiciosException;
 
 /**
@@ -73,12 +75,12 @@ public class CasillaDAO implements ICasillaDAO {
 			}
 	}
 	@Override
-	public List<Casilla> obtenerCasillasPorFormulario(long id) throws ServiciosException {
-		List<Casilla> casillas = new LinkedList<Casilla>();
+	public List<Contiene> obtenerCasillasPorFormulario(Formulario f) throws ServiciosException {
+		List<Contiene> casillas = new LinkedList<Contiene>();
 		try {
-			TypedQuery<Casilla> query = em.createQuery(
-					"SELECT c FROM Casilla c INNER JOIN Contiene CO ON c.id_casilla = CO.casilla INNER JOIN Formulario F ON F.id_formulario = CO.formulario WHERE F.id_formulario = :idformulario",
-					Casilla.class).setParameter("idformulario", id);
+			TypedQuery<Contiene> query = em.createQuery(
+					"SELECT c FROM Contiene c WHERE c.formulario = :formulario",
+					Contiene.class).setParameter("formulario", f);
 			casillas = query.getResultList();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudieron cargar las casillas");

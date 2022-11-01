@@ -31,13 +31,7 @@ public class Casilla implements Serializable {
 	private String descripcion;
 
 	@Column(nullable = false)
-	private String lugarubicacion;
-
-	@Column(nullable = false)
 	private String nombre;
-
-	@Column(nullable = false)
-	private String parametro;
 
 	@Column(nullable = false)
 	@Enumerated(value = EnumType.STRING)
@@ -50,9 +44,17 @@ public class Casilla implements Serializable {
 	@OneToMany(mappedBy="casilla",  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Contiene> contienes;
 	
-	
-	
-	
+	@Column(nullable = false)
+	private String usuario;
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
 	public List<Contiene> getContienes() {
 		return contienes;
 	}
@@ -77,14 +79,6 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public String getLugarubicacion() {
-		return lugarubicacion;
-	}
-
-	public void setLugarubicacion(String lugarubicacion) {
-		this.lugarubicacion = lugarubicacion;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -92,15 +86,7 @@ public class Casilla implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getParametro() {
-		return parametro;
-	}
-
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
-	}
-
+	
 	public EnumTipoDato getTipoDato() {
 		return tipoDato;
 	}
