@@ -120,10 +120,10 @@ public class LoginUsuario implements Serializable {
 			route = "/pages/listarUsuario.xhtml?faces-redirect=true";
 			break;
 		case "Investigador":
-			route = "/pages/listarCasilla.xhtml?faces-redirect=true";
+			route = "/pages/listarFormulario.xhtml?faces-redirect=true";
 			break;
 		case "Aficionado":
-			route = "/pages/listarObservaciones.xhtml?faces-redirect=true";
+			route = "/pages/formularioDisponible.xhtml?faces-redirect=true";
 			break;
 	
 		}

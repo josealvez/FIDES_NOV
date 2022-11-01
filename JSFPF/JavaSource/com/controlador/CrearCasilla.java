@@ -29,13 +29,12 @@ public class CrearCasilla implements Serializable {
 	@Size(min=3,max=50, message = "debe contener entre 3 y 10 caracteres.")
 	private String nombre;
 	
-	@Size(min=2,max=40, message = "El tipo de dato debe contener entre 2 y 40 caracteres.")
-	private String tipoDato;
-	
 	@SuppressWarnings("unused")
 	private EnumTipoDato etdc;
+	
+	private String tipoDato;
 
-	@Size(min=3,max=40, message = "debe contener entre 3 y 10 caracteres.")
+	@Size(min=1,max=40, message = "debe contener entre 1 y 10 caracteres.")
 	private String unidadMedida;
 	
 	private String usuario;
@@ -129,7 +128,7 @@ public String crearCasilla() {
 			context.addMessage( "debe contener entre 3 y 50 caracteres." , message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			return " ";
-		}else if( (this.unidadMedida.length() < 3) || (this.unidadMedida.length() > 50)){
+		}else if( (this.unidadMedida.length() < 1) || (this.unidadMedida.length() > 50)){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de validación",  "debe contener entre 3 y 50 caracteres.");
 			context.addMessage( "debe contener entre 3 y 50 caracteres.", message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
