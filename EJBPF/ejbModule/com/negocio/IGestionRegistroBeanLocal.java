@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.dto.RegistroDTO;
 import com.entities.Contiene;
 import com.entities.Formulario;
 import com.exception.ServiciosException;
@@ -17,5 +18,6 @@ public interface IGestionRegistroBeanLocal {
 	Contiene BuscarRegistroPorId(Long id) throws ServiciosException;
 	List<Contiene> ListarRegistrosPorFormulario(Formulario f) throws ServiciosException;
 	List<Contiene> ListarRegistros() throws ServiciosException;
+	List<RegistroDTO> ListarRegistrosRest() throws ServiciosException;
 
 }

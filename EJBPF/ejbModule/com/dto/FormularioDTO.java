@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import com.entities.Contiene;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(value = { "contienes" })
 public class FormularioDTO implements Serializable {
 	
 	/**
@@ -19,9 +22,7 @@ public class FormularioDTO implements Serializable {
 	private Date fechahora;
 	
 	private String descripcion;
-	
-	private List<Contiene> contienes;	
-	
+
 	private String usuario;
 
 	public String getUsuario() {
@@ -63,14 +64,5 @@ public class FormularioDTO implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-	public List<Contiene> getContienes() {
-		return contienes;
-	}
-
-	public void setContienes(List<Contiene> contienes) {
-		this.contienes = contienes;
-	}
-
+	
 }

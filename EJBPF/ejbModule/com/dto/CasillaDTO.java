@@ -4,16 +4,25 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.entities.Contiene;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(value = { "contienes" })
 public class CasillaDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1577060491323634320L;
 	private Long id_casilla;
 	private String descripcion;
 	private String nombre;
 	private String tipoDato;
 	private String unidadMedida;
+
 	private List<Contiene> contienes;	
+	
 	private String usuario;
 	
 	public CasillaDTO() {

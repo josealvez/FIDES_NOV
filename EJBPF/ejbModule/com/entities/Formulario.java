@@ -1,16 +1,9 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.*;
-
-import com.entities.Contiene;
-
 
 @Entity
 @Table(name = "FORMULARIOS")
@@ -24,9 +17,11 @@ public class Formulario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqFormulario")
 	private Long id_formulario;
 	
-	@Column(length = 50)
+	
+	@Column(length = 50, nullable = false, unique = true)
 	private  String nombre;
 	
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
     private Date fechaHora;
 	
@@ -34,6 +29,7 @@ public class Formulario implements Serializable {
 	private  String descripcion;
 	
 	//bi-directional many-to-one association to Contiene
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="formulario")
 	private List<Contiene> contienes;	
 	//

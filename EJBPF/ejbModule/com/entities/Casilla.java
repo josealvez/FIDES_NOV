@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import com.entities.Contiene;
 import com.enumerados.EnumTipoDato;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -18,6 +20,7 @@ import com.enumerados.EnumTipoDato;
 @Entity
 @Table(name="CASILLAS")
 
+@JsonIgnoreProperties(value = { "contienes" })
 public class Casilla implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -42,6 +45,7 @@ public class Casilla implements Serializable {
 
 	//bi-directional many-to-one association to Contiene
 	@OneToMany(mappedBy="casilla",  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JsonIgnore
 	private List<Contiene> contienes;
 	
 	@Column(nullable = false)

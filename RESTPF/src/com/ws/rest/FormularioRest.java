@@ -10,6 +10,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Response;
+
 import com.dto.FormularioDTO;
 import com.exception.ServiciosException;
 import com.negocio.GestionCasillaBean;
@@ -25,17 +26,17 @@ public class FormularioRest implements IFormularioRest{
 	@EJB
 	private GestionCasillaBean servicioCasilla;
 	
-	@Override
-	public Response obtenerFormularios() {
-		try {
-			List<FormularioDTO> formularios = servicioFormulario.obtenerFormularios();
-			Map<String, List<FormularioDTO>> fenMap = new HashMap<String, List<FormularioDTO>>();
-			fenMap.put("formularios", formularios);
-			return  Response.ok().entity(fenMap).build();
-		} catch (ServiciosException e) {
-			return  Response.serverError().build();
-		}
-	}
+//	@Override
+//	public Response obtenerFormularios() {
+//		try {
+//			List<FormularioDTO> formularios = servicioFormulario.obtenerFormularios();
+//			Map<String, List<FormularioDTO>> fenMap = new HashMap<String, List<FormularioDTO>>();
+//			fenMap.put("formularios", formularios);
+//			return  Response.ok().entity(fenMap).build();
+//		} catch (ServiciosException e) {
+//			return  Response.serverError().build();
+//		}
+//	}
 
 	@Override
 	public Response crearFormulario(JsonObject imputJson) {
@@ -50,7 +51,6 @@ public class FormularioRest implements IFormularioRest{
 			ob.setNombre(imputJson.getString("nombreFormulario"));
 			ob.setDescripcion(imputJson.getString("descripcion"));
 			ob.setFechahora(fecha);
-			ob.setValidarInvestigador(imputJson.getBoolean("true"));
 
 			servicioFormulario.agregarFormulario(ob);
 			
@@ -90,6 +90,16 @@ public class FormularioRest implements IFormularioRest{
 //		}
 //
 //	}
-	
+	@Override
+	public Response obtenerFormularios() {
+		try {
+			List<FormularioDTO> formularios = servicioFormulario.obtenerFormularios();
+			Map<String, List<FormularioDTO>> forMap = new HashMap<String, List<FormularioDTO>>();
+			forMap.put("formularios", formularios);
+			return  Response.ok().entity(forMap).build();
+		} catch (ServiciosException e) {
+			return  Response.serverError().build();
+		}
+	}
 	
 }

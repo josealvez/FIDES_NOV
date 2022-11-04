@@ -63,15 +63,13 @@
                         
                     </f:facet>
                     
-                    <p:headerRow field="item.formulario.nombre">
+                    <p:headerRow field="item.fecharegistro">
                         
                			<p:column colspan="1">
                    			<div style="vertical-align: middle">
                         		<h:outputText value="#{item.formulario.nombre}"/>
                     		</div>
                 		</p:column>
-                		
-                		
                 		
                 		<p:column colspan="1">
                 		</p:column>
@@ -91,7 +89,7 @@
                 		
                 		<p:column headerText="Acciones" style="text-align: center;">
 							<p:spacer width="10" />
-							<p:button icon="pi pi-compass" value="Insertar un Registro" outcome="crearRegistro">
+							<p:button icon="pi pi-compass" value="Ver más" outcome="crearRegistro">
 							<f:param name="formID" value="#{item.formulario.id_formulario}" />
 							</p:button>
 						</p:column>

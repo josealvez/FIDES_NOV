@@ -30,7 +30,10 @@ public class ListarRegistros implements Serializable{
 	@PostConstruct
 	public void init() {
 		try {
-				List<Contiene> listaSinFiltro = servicioRegistro.ListarRegistros();
+				List<Contiene> listaSinFiltro = new ArrayList<Contiene>();
+				listaSinFiltro.clear();
+				listacontienes.clear();
+				listaSinFiltro = servicioRegistro.ListarRegistros();
 				for (Contiene con : listaSinFiltro) {
 					if (con.getIsRegistro()) {
 						listacontienes.add(con);
