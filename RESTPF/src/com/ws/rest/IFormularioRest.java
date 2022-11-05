@@ -1,5 +1,7 @@
 package com.ws.rest;
 
+import java.text.ParseException;
+
 import javax.ejb.Local;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
@@ -20,6 +22,6 @@ public interface IFormularioRest {
 	@POST
     @Path("crear")
     @Produces(MediaType.APPLICATION_JSON)
-    Response crearFormulario(JsonObject imputJson);
+    Response crearFormulario(JsonObject imputJson) throws ParseException;
 
 }

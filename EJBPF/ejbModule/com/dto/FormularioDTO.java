@@ -2,12 +2,9 @@ package com.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import com.entities.Contiene;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = { "contienes" })
+
+
 public class FormularioDTO implements Serializable {
 	
 	/**

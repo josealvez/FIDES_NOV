@@ -39,7 +39,7 @@ public class FormularioRest implements IFormularioRest{
 //	}
 
 	@Override
-	public Response crearFormulario(JsonObject imputJson) {
+	public Response crearFormulario(JsonObject imputJson) throws ParseException {
 		
 		Map<String, String> agregarStatus = new HashMap<String, String>();
 		FormularioDTO ob = new FormularioDTO();
@@ -57,7 +57,7 @@ public class FormularioRest implements IFormularioRest{
 			agregarStatus.put("Estado", "ok");
 			return  Response.ok().entity(agregarStatus).build();
 			
-		} catch (ParseException | ServiciosException e) {
+		} catch (ServiciosException e) {
 			agregarStatus.put("Estado: ", "error");
 			return  Response.serverError().entity(agregarStatus).build();
 		}

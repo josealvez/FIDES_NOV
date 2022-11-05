@@ -35,7 +35,7 @@ public class LoginUsuario implements Serializable {
 	@Email
 	private String email;
 
-	@Size(min = 2, max = 40, message = "La contraseña debe contener entre 2 y 40 caracteres.")
+	@Size(min = 2, max = 40, message = "La contraseï¿½a debe contener entre 2 y 40 caracteres.")
 	private String password;
 
 	public String getEmail() {
@@ -54,7 +54,7 @@ public class LoginUsuario implements Serializable {
 		this.password = password;
 	}
 
-	public void validarUsuario() throws NamingException, IOException {
+	public void validarUsuario() throws NamingException, IOException, NoSuchAlgorithmException {
 
 		UsuarioDTO u = new UsuarioDTO();
 		String email = new String(this.email);
@@ -62,7 +62,7 @@ public class LoginUsuario implements Serializable {
 
 		try {
 			u = persistenciaUsuario.validarUsuario(this.email, this.password);
-		} catch (NoSuchAlgorithmException | ServiciosException e) {
+		} catch (ServiciosException e) {
 			e.printStackTrace();
 		}
 
@@ -93,7 +93,7 @@ public class LoginUsuario implements Serializable {
 	public String usuarioInvalido() {
 		String redirect = " ";
 		FacesContext fc = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña incorrecta",
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseï¿½a incorrecta",
 				"ERROR");
 		fc.addMessage("", message);
 		fc.getExternalContext().getFlash().setKeepMessages(true);

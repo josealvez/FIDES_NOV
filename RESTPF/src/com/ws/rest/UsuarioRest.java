@@ -44,7 +44,7 @@ public class UsuarioRest implements IUsuarioRest {
 	}
 
 	@Override
-	public Response validar(JsonObject imputJson) {
+	public Response validar(JsonObject imputJson) throws NoSuchAlgorithmException {
 		try {
 			Map<String, String> loginStatus = new HashMap<String, String>();
 			String email = imputJson.getString("email");
@@ -58,13 +58,13 @@ public class UsuarioRest implements IUsuarioRest {
 				loginStatus.put("Apellido", u.getApellido());
 			}
 			return  Response.ok().entity(loginStatus).build();
-		} catch (NoSuchAlgorithmException | ServiciosException e) {
+		} catch (ServiciosException e) {
 			return  Response.serverError().build();
 		} 
 	}
 
 	@Override
-	public Response crear(JsonObject j) {
+	public Response crear(JsonObject j) throws NoSuchAlgorithmException {
 		
 		Map<String, Boolean> agregarStatus = new HashMap<String, Boolean>();
 		
@@ -84,7 +84,7 @@ public class UsuarioRest implements IUsuarioRest {
 			serviceUsuario.agregarUsuario(u);
 			agregarStatus.put("Estado", true);
 			return  Response.ok().entity(agregarStatus).build();
-		}catch (NoSuchAlgorithmException | ServiciosException e ){
+		}catch (ServiciosException e ){
 			agregarStatus.put("Estado: ", false);
 			return  Response.serverError().entity(agregarStatus).build();
 		}

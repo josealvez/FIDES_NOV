@@ -231,7 +231,7 @@ public class ActualizarUsuario implements Serializable{
 		return "/pages/actualizarusuario.xhtml?faces-redirect=true&userEmail=" + this.getEmailBusqueda();
 	}
 	
-	public String actulizarUsuario() {
+	public String actulizarUsuario() throws ServiciosException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();		
 		
@@ -308,7 +308,7 @@ public class ActualizarUsuario implements Serializable{
 			context.addMessage("", message);
 			context.getExternalContext().getFlash().setKeepMessages(true);
 			        
-		} catch (ServiciosException | NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException e) {
 			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "ERROR");
 			context.addMessage("", message);

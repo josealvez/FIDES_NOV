@@ -150,7 +150,7 @@ public class CrearUsuario implements Serializable {
 		return EnumEstadoUsuario.values();
 	}
 	
-	public String crearUsuario() {
+	public String crearUsuario() throws NoSuchAlgorithmException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -250,7 +250,7 @@ public class CrearUsuario implements Serializable {
 			
 	      
 	        
-		} catch (ServiciosException | NoSuchAlgorithmException e) {
+		} catch (ServiciosException e) {
 			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "ERROR");
 			context.addMessage("", message);

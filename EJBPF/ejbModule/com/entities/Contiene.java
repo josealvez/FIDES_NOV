@@ -2,10 +2,8 @@ package com.entities;
 
 import java.io.Serializable;
 
+
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 /**
  * The persistent class for the CONTIENE database table.
@@ -33,13 +31,11 @@ public class Contiene implements Serializable {
 	//bi-directional many-to-one association to Casilla
 	@ManyToOne
 	@JoinColumn(name="IDCASILLA")
-	@JsonIgnore
 	private Casilla casilla;
 
 	//bi-directional many-to-one association to Formulario
 	@ManyToOne
 	@JoinColumn(name="IDFORMULARIOS", nullable = true)
-	@JsonIgnore
 	private Formulario formulario;
 
 	public Contiene() {
