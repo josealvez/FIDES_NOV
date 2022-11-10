@@ -1,12 +1,13 @@
 package com.dto;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RegistroDTO {
 
 	private String nombre;
 	private String descripcion;
-	private List<String> casillas;
+	private HashMap<String, String> casillas;
 	
 	public String getNombre() {
 		return nombre;
@@ -20,11 +21,11 @@ public class RegistroDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public List<String> getCasillas() {
+	public HashMap<String, String> getCasillas() {
 		return casillas;
 	}
-	public void setCasillas(List<String> casillas) {
-		this.casillas = casillas;
+	public void setCasillas(HashMap<String, String> ingreso) {
+		this.casillas = ingreso;
 	}
 	
 	

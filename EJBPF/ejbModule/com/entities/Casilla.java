@@ -25,7 +25,7 @@ public class Casilla implements Serializable {
 
 	@Id
 	@SequenceGenerator(name="seqCasilla", initialValue=1, sequenceName="SEQ_ID_CASILLAS")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CASILLAS_IDCASILLA_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqCasilla")
 	private long id_casilla;
 
 	@Column(length = 100)

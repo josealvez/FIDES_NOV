@@ -1,6 +1,7 @@
 package com.negocio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -63,18 +64,17 @@ public class GestionRegistroBean implements IGestionRegistroBeanLocal {
     	List<RegistroDTO> listaRegistros = new ArrayList<>();
     	for (Formulario form : listaForm) {
     		RegistroDTO registro = new RegistroDTO();
-    		List<String> strings = new ArrayList<>();
+    		HashMap<String, String> ingreso = new HashMap<String, String>();
     		for (Contiene con : listaCont) {
     			if (con.getIsRegistro()) {
     				if (con.getFormulario().equals(form)) {
-    				String ingreso = "{Casilla: "+con.getCasilla().getNombre()+" Parametro: "+con.getRegistro()+"}";
     				registro.setNombre(form.getNombre());
     	    		registro.setDescripcion(form.getDescripcion());
-    				strings.add(ingreso);
+    	    		ingreso.put(con.getCasilla().getNombre(), con.getRegistro());
     				}
     			}
     		}
-    		registro.setCasillas(strings);
+    		registro.setCasillas(ingreso);
     		if (registro.getNombre()!=null) listaRegistros.add(registro);
     	}
     	return listaRegistros;

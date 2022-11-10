@@ -32,7 +32,7 @@ public class RegistroRest implements IRegistroRest {
 			List<RegistroDTO> registros = servicioRegistro.ListarRegistrosRest();
 			Map<String, List<RegistroDTO>> forMap = new HashMap<String, List<RegistroDTO>>();
 			forMap.put("registros", registros);
-			return  Response.ok().entity(forMap).build();
+			return  Response.ok().entity(registros).build();
 		} catch (ServiciosException e) {
 			return  Response.serverError().build();
 		}

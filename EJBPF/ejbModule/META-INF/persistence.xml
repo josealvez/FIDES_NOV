@@ -3,6 +3,7 @@
 	<persistence-unit name="EJBPF">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/OracleDS</jta-data-source>
+		<validation-mode>NONE</validation-mode>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
