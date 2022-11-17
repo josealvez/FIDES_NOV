@@ -74,15 +74,15 @@ public class LoginUsuario implements Serializable {
 				router("Investigador", u);
 			if (u.getRol().equals(EnumCategoriaUsuario.AFICIONADO.toString()))
 				router("Aficionado", u);
+//comentar esto para logear sin ldap
+		} else if (dominio[1].equalsIgnoreCase("fides.net")) {
 
-//		} else if (dominio[1].equalsIgnoreCase("pf.edu.uy")) {
-//
-//			if ( validarLDAP() && u == null) {
-//				ldapNewUser();
-//			} else {
-//				usuarioInvalido();
-//			}
-//
+			if ( validarLDAP() && u == null) {
+				ldapNewUser();
+			} else {
+				usuarioInvalido();
+			}
+// hasta aca
 		} else {
 
 			usuarioInvalido();
@@ -100,17 +100,17 @@ public class LoginUsuario implements Serializable {
 		return redirect;
 	}
 
-//	public boolean validarLDAP() throws NamingException {
-//
-//		try {
-//			persistenciaUsuario.validarLDAP(this.email, this.password);
-//			return true;
-//		}
-//
-//		catch (ServiciosException | IOException e) {
-//			return false;
-//		}
-//	}
+	public boolean validarLDAP() throws NamingException {
+
+		try {
+			persistenciaUsuario.validarLDAP(this.email, this.password);
+			return true;
+		}
+
+		catch (ServiciosException | IOException e) {
+			return false;
+		}
+	}
 
 	public void router(String rol, UsuarioDTO u) throws IOException {
 		ExternalContext fc = FacesContext.getCurrentInstance().getExternalContext();
@@ -131,20 +131,21 @@ public class LoginUsuario implements Serializable {
 		fc.redirect(fc.getRequestContextPath() + route);
 	}
 	
-//	public void ldapNewUser() {
-//		ExternalContext fc = FacesContext.getCurrentInstance().getExternalContext();
-//		String route = "/pages/nuevoEnLDAP.xhtml?faces-redirect=true";
-//		UsuarioDTO u = new UsuarioDTO();
-//		u.setEmail(this.email);
-//		u.setPasswd(this.password);
-//		String[] username = this.email.split("@");
-//		u.setUsername(username[0]);
-//		fc.getSessionMap().put("usuario", u);
-//		try {
-//			fc.redirect(fc.getRequestContextPath() + route);
-//		} catch (IOException e) {
-//			System.out.println("Se rompio todo");
-//			e.printStackTrace();
-//		}
-//	}
+	public void ldapNewUser() {
+		ExternalContext fc = FacesContext.getCurrentInstance().getExternalContext();
+		String route = "/pages/nuevoEnLDAP.xhtml?faces-redirect=true";
+		UsuarioDTO u = new UsuarioDTO();
+		u.setEmail(this.email);
+		u.setPasswd(this.password);
+		String[] username = this.email.split("@");
+		u.setUsername(username[0]);
+		fc.getSessionMap().put("usuario", u);
+		try {
+			fc.redirect(fc.getRequestContextPath() + route);
+		} catch (IOException e) {
+			System.out.println("Se rompio todo");
+			e.printStackTrace();
+		}
+	}
+	
 }

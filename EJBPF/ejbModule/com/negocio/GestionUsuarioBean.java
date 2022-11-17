@@ -1,10 +1,13 @@
 package com.negocio;
+import java.io.IOException;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.naming.NamingException;
 
 import com.daos.DocumentoCategoriaDAO;
 import com.daos.EstadoUsuarioDAO;
@@ -19,6 +22,7 @@ import com.enumerados.EnumCategoriaDocumento;
 import com.enumerados.EnumCategoriaUsuario;
 import com.enumerados.EnumEstadoUsuario;
 import com.exception.ServiciosException;
+import com.ldap.ActiveDirectoryConnect;
 
 @LocalBean
 @Stateless
@@ -160,11 +164,9 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
     private UsuarioDTO prepararValidarUsuario(String email, String password) throws ServiciosException, NoSuchAlgorithmException {
     	
     	UsuarioDTO udto = new UsuarioDTO();
-//    	Md5Encrypt enpass = new Md5Encrypt(password);
+//    	Md5Encrypt enpass = new Md5Encrypt(password);@Override
 //    	Usuario usr = uPersistencia.validarUsuario(email, enpass.getEncryptedPass());
     	Usuario usr = uPersistencia.validarUsuario(email, password);
-    	
-  
     	
     	if ( usr != null) {
     		udto.setNombre(usr.getNombre());
@@ -179,6 +181,11 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
     		return null;
     	}
     	
+    }
+    
+    private void prepararValidarLDAP(String user, String token) throws IOException, ServiciosException, NamingException{
+    	ActiveDirectoryConnect adc = new ActiveDirectoryConnect();
+    	adc.userAutenticar(user, token);
     }
     
     
@@ -230,5 +237,10 @@ public class GestionUsuarioBean implements IGestionUsuarioBean {
 		}else {
 			return null;
 		}
+	}
+	
+	@Override
+	public void validarLDAP(String user, String token) throws NamingException, IOException, ServiciosException{
+		prepararValidarLDAP(user, token);
 	}
 }
